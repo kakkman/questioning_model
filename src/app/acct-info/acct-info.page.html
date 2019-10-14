@@ -1,9 +1,59 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>acct_info</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header translucent>
+      <ion-toolbar color="secondary">
+      	 <ion-buttons slot="start" color="">
+          <ion-button>Go Back</ion-button>
+        </ion-buttons>
+        <ion-title>Account Info: Company ABC</ion-title>
+         <ion-buttons slot="primary" color="">
+          <ion-button>Edit Account Info</ion-button>
+        </ion-buttons>
+
+       
+      </ion-toolbar>
+    </ion-header>
 
 <ion-content>
+	<ion-card href="/entitled-deployed">
+	  <ion-item>
+	<ion-card-header>
+    <ion-card-title>IBM Entitled and Deployed Products</ion-card-title>
+  </ion-card-header>
+    <ion-icon name="contacts" slot="start"></ion-icon>
+    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
+    <ion-button fill="outline" slot="end" href="/acct-info">Complete</ion-button>
+  </ion-item>
+</ion-card>
+	<ion-card href="/cloud-info">
+	  <ion-item>
+	<ion-card-header>
+    <ion-card-title>Client Cloud Information</ion-card-title>
+  </ion-card-header>
+    <ion-icon name="contacts" slot="start"></ion-icon>
+    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
+    <ion-button fill="outline" slot="end" href="/acct-info">Complete</ion-button>
+  </ion-item>
+</ion-card>
+	<ion-card>
+	  <ion-item>
+	<ion-card-header>
+    <ion-card-title>Prospect Questions</ion-card-title>
+  </ion-card-header>
+    <ion-icon name="contacts" slot="start"></ion-icon>
+    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
+    <ion-button fill="outline" slot="end" href="/acct-info">Complete</ion-button>
+  </ion-item>
+</ion-card>
+	<ion-card href="/report">
+	  <ion-item>
+	<ion-card-header>
+    <ion-card-title>Generated Report</ion-card-title>
+  </ion-card-header>
+    <ion-icon name="contacts" slot="start"></ion-icon>
+    <ion-label text-wrap>Last Generated: 10-10-19</ion-label>
+    <ion-button fill="outline" slot="end" href="/acct-info">Complete</ion-button>
+  </ion-item>
+</ion-card>
+<ion-button expand="block"> Generate New Report </ion-button>
+	 
 
 </ion-content>
