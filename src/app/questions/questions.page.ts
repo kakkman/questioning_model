@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-questions',
@@ -21,10 +24,30 @@ cp4a1 = ["Are you building Cloud Native Applications?", "Yes", "No"];
 cp4a2 = ["Are you modernizing your legacy applications?", "Yes", "No"];
 cloudPakForApplications = [this.cp4a1, this.cp4a2];
 
+	account : any[] = [];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router, private storage: Storage) { 
+  this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.account = this.router.getCurrentNavigation().extras.state.acct;
+      }
+    });
+}
 
   ngOnInit() {
+  }
+
+  hasItem(item){
+
+  }
+  
+  navigateToPage(page) {
+    let navigationExtras: NavigationExtras = {
+            state: {
+                acct: this.account
+            }
+        };
+        this.router.navigate([page], navigationExtras);
   }
 
 }

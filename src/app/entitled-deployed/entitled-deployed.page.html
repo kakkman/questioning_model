@@ -1,7 +1,7 @@
 <ion-header translucent>
       <ion-toolbar color="secondary">
       	 <ion-buttons slot="start" color="">
-          <ion-button href="/acct-info">Go Back</ion-button>
+          <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
         </ion-buttons>
         <ion-title>IBM Entitled and Deployed Products</ion-title>  
       </ion-toolbar>
@@ -15,7 +15,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of dataScienceAndAI">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -25,7 +25,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of hybridDataManagement">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -35,7 +35,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of unifiedGovernanceAndIntegration">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -45,7 +45,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of digitalBusinessAutomation">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -55,7 +55,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of managementAndPlatform">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -65,7 +65,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of dataAndAIonIBMZ">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -75,7 +75,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of IBMCloudPlatform">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -85,7 +85,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of IBMSecurity">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 <ion-card>
@@ -95,7 +95,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let item of IBMCognitiveApplications">
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;{{item}}</p>
+  	<ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{item}}</p>
   </ion-item>
 </ion-card>
 </ion-content>

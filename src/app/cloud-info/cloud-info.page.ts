@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-cloud-info',
@@ -8,8 +11,15 @@ import { Component, OnInit } from '@angular/core';
 export class CloudInfoPage implements OnInit {
 
 
+account: any[] = [];
 cloudsInUse: any[] = [];
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router, private storage: Storage) { 
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.account = this.router.getCurrentNavigation().extras.state.acct;
+      }
+    });
+}
 usingVMWare = false;
 
   ngOnInit() {
@@ -27,6 +37,15 @@ usingVMWare = false;
   		}
   	}
 
+  }
+
+  navigateToPage(page) {
+    let navigationExtras: NavigationExtras = {
+            state: {
+                acct: this.account
+            }
+        };
+        this.router.navigate([page], navigationExtras);
   }
 
   updateVMWare(e) {

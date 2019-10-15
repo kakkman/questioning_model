@@ -1,9 +1,9 @@
 <ion-header translucent>
       <ion-toolbar color="secondary">
       	 <ion-buttons slot="start" color="">
-          <ion-button href="/acct-info">Go Back</ion-button>
+          <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
         </ion-buttons>
-        <ion-title>Questions: Company ABC</ion-title>    
+        <ion-title>Questions: {{account.name}}</ion-title>    
       </ion-toolbar>
     </ion-header>
 <ion-content>
@@ -12,13 +12,13 @@
   <ion-item *ngFor= "let item of cloudPakForData; let i = index">
     {{item[0]}}
 	<ion-item *ngFor = "let choice of item | slice:1">
-  	<ion-checkbox disabled="false" (ionChange)="updateVMWare($event)"></ion-checkbox> &nbsp;{{choice}}
+  	<ion-checkbox disabled="false" (ionChange)="updateVMWare($event)" [checked]="hasItem(item)"></ion-checkbox> &nbsp;{{choice}}
  	 </ion-item>
 </ion-item>
 
   <ion-item *ngFor= "let item of cloudPakForApplications; let i = index">
     {{item[0]}}
-	<ion-item *ngFor = "let choice of item | slice:1">
+	<ion-item *ngFor = "let choice of item | slice:1;">
   	<ion-checkbox disabled="false" (ionChange)="updateVMWare($event)"></ion-checkbox> &nbsp;{{choice}}
  	 </ion-item>
 </ion-item>

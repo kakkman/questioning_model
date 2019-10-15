@@ -24,7 +24,7 @@
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
     <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
-    <ion-button fill="outline" slot="end" href="/acct-info">View</ion-button>
+    <ion-button fill="outline" slot="end" (click)="openAccountPage(account)">View</ion-button>
   </ion-item>
 
   <ion-card-content>
@@ -32,20 +32,4 @@
   </ion-card-content>
 </ion-card>
 
-<ion-card>
-	  <ion-item>
-	<ion-card-header>
-    <ion-card-title>Company ABC</ion-card-title>
-        <ion-card-subtitle>Alphabet Town, USA</ion-card-subtitle>
-
-  </ion-card-header>
-    <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
-    <ion-button fill="outline" slot="end">View</ion-button>
-  </ion-item>
-
-  <ion-card-content>
-    This is content, describing any specific footnotes, contacts, etc for the client. It can be any length desired
-  </ion-card-content>
-</ion-card>
 </ion-content>

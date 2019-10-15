@@ -1,49 +1,46 @@
 <ion-header translucent>
       <ion-toolbar color="secondary">
       	 <ion-buttons slot="start" color="">
-          <ion-button href="/home">Go Back</ion-button>
+          <ion-button (click)="navigateToPage('/home')">Go Back</ion-button>
         </ion-buttons>
-        <ion-title>Account Info: Company ABC</ion-title>
+        <ion-title>Account Info: {{account.name}}</ion-title>
          <ion-buttons slot="primary" color="">
           <ion-button>Edit Account Info</ion-button>
-        </ion-buttons>
-
-       
+        </ion-buttons>  
       </ion-toolbar>
     </ion-header>
-
 <ion-content>
-	<ion-card href="/entitled-deployed">
+	<ion-card (click)="navigateToPage('/entitled-deployed')">
 	  <ion-item>
 	<ion-card-header>
     <ion-card-title>IBM Entitled and Deployed Products</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
-    <ion-button fill="outline" slot="end" href="/acct-info">Complete</ion-button>
+    <ion-label text-wrap>{{account.date}}</ion-label>
+    <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
-	<ion-card href="/cloud-info">
+	<ion-card (click)="navigateToPage('/cloud-info')">
 	  <ion-item>
 	<ion-card-header>
     <ion-card-title>Client Cloud Information</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
-    <ion-button fill="outline" slot="end" href="/acct-info">Complete</ion-button>
+    <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
+    <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
-	<ion-card href ="/questions">
+	<ion-card (click)="navigateToPage('/questions')">
 	  <ion-item>
 	<ion-card-header>
     <ion-card-title>Prospect Questions</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
-    <ion-button fill="outline" slot="end" href="/acct-info">Complete</ion-button>
+    <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
+    <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
-	<ion-card href="/report">
+	<ion-card (click)="navigateToPage('/report')">
 	  <ion-item>
 	<ion-card-header>
     <ion-card-title>Generated Report</ion-card-title>
@@ -52,6 +49,4 @@
     <ion-label text-wrap>Last Generated: 10-10-19</ion-label>
   </ion-item>
 </ion-card>
-	 
-
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 import { Storage } from '@ionic/storage';
 
@@ -23,7 +23,7 @@ export class HomePage {
         questions: [],
         report: [] };
 
-    constructor(private alertCtrl: AlertController, private storage: Storage) {
+    constructor(private alertCtrl: AlertController, private storage: Storage, private router: Router) {
         storage.get('accounts').then((val)=> {
             if (val != null) {
                 this.accounts = val;
@@ -75,7 +75,7 @@ export class HomePage {
                             questions: [],
                             report: []
                         };
-                        this.accounts.push(newAcct);
+                        this.accounts.unshift(newAcct);
                         this.storage.set("accounts", this.accounts);
                     }
                 }
@@ -83,4 +83,17 @@ export class HomePage {
         });
         await alert.present(); 
     }
+
+    openAccountPage(account){
+        let navigationExtras: NavigationExtras = {
+            state: {
+                acct: account
+            }
+        };
+    this.router.navigate(['acct-info'], navigationExtras);
+    }
 }
+
+
+
+

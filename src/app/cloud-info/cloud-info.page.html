@@ -1,9 +1,9 @@
 <ion-header translucent>
       <ion-toolbar color="secondary">
       	 <ion-buttons slot="start" color="">
-          <ion-button href="/acct-info">Go Back</ion-button>
+          <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
         </ion-buttons>
-        <ion-title>Cloud Info: Company ABC</ion-title>  
+        <ion-title>Cloud Info: {{account.name}}</ion-title>  
       </ion-toolbar>
     </ion-header>
 <ion-content>

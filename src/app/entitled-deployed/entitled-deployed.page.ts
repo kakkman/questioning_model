@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
-import { File } from '@ionic-native/file/ngx';
-import { HttpClient } from '@angular/common/http';
 
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-entitled-deployed',
@@ -104,10 +103,55 @@ IBMCognitiveApplications = ["Watson Media & Weather",
 "Watson Talent & Collaboration"];
 
 
-  constructor(private http: HttpClient, private file: File) { 
+account: any;
+
+  constructor(private route: ActivatedRoute, private router: Router, private storage: Storage) { 
+  	this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.account = this.router.getCurrentNavigation().extras.state.acct;
+      }
+    });
   }
 
   ngOnInit() {
+  }
+
+  navigateToPage(page) {
+  	let navigationExtras: NavigationExtras = {
+            state: {
+                acct: this.account
+            }
+        };
+        this.router.navigate([page], navigationExtras);
+  }
+
+  checkedItem(e, item) {
+  	if(e.currentTarget.checked) {
+  		this.account.entitledDeployed.push(item);
+  	}
+  	else{
+  		var index = this.account.entitledDeployed.indexOf(item);
+  		if(index!= -1) {
+  			this.account.entitledDeployed.splice(index, 1);
+  		}
+  	}
+
+  	console.log(this.account.entitledDeployed);
+  	this.storage.get("accounts").then((val) => { 
+
+  		let obj = val.find(x => x.name === this.account.name)
+  		let index = val.indexOf(obj);
+
+  		console.log(index);
+  		val[index] = this.account;
+  		this.storage.set("accounts", val);
+  	});
+  }
+
+  hasItem(item)
+  {
+  	let hasItem = this.account.entitledDeployed.indexOf(item) != -1;
+  	return hasItem;
   }
 
 
