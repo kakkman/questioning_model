@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'entitled-deployed', loadChildren: './entitled-deployed/entitled-deployed.module#EntitledDeployedPageModule' },
   { path: 'cloud-info', loadChildren: './cloud-info/cloud-info.module#CloudInfoPageModule' },
   { path: 'report', loadChildren: './report/report.module#ReportPageModule' },
+  { path: 'questions', loadChildren: './questions/questions.module#QuestionsPageModule' },
 ];
 
 @NgModule({

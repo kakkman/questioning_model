@@ -1,5 +1,7 @@
 {
   "name": "questioning_model",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

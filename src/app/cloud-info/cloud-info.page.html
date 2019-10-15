@@ -1,9 +1,107 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>cloud-info</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<ion-header translucent>
+      <ion-toolbar color="secondary">
+      	 <ion-buttons slot="start" color="">
+          <ion-button href="/acct-info">Go Back</ion-button>
+        </ion-buttons>
+        <ion-title>Cloud Info: Company ABC</ion-title>  
+      </ion-toolbar>
+    </ion-header>
 <ion-content>
+	<ion-card>
+	  <ion-item>
+	<ion-card-header>
+    <ion-card-title>Which Cloud Provider(s) is your client using today?</ion-card-title>
+  </ion-card-header>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'IBM Cloud')"></ion-checkbox><p> &nbsp;IBM Cloud</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Amazon Web Services')"></ion-checkbox><p> &nbsp;Amazon Web Services</p>
+  </ion-item>
+<ion-item>
+  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Google')"></ion-checkbox><p> &nbsp;Google</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Microsoft')"></ion-checkbox><p> &nbsp;Microsoft</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Other')"></ion-checkbox><p> &nbsp;Other</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;None</p>
+  </ion-item>
+</ion-card>
+
+<ion-card *ngFor="let cloud of cloudsInUse">
+	 <ion-item>
+    <ion-card-title>{{cloud}}</ion-card-title>
+    </ion-item>
+    <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;IaaS</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;PaaS</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;Storage</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;AI</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;Analytics</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;Security</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;Kubernetes</p>
+  </ion-item>
+</ion-card>
+
+
+<ion-card>
+	  <ion-item>
+    <ion-card-title>Is your client using Docker?</ion-card-title>
+</ion-item>
+<ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;Yes</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;No</p>
+  </ion-item>
+</ion-card>
+  
+  <ion-card>
+	  <ion-item>
+    <ion-card-title>Is your client using VMWare?</ion-card-title>
+</ion-item>
+<ion-item>
+  	<ion-checkbox disabled="false" (ionChange)="updateVMWare($event)"></ion-checkbox><p> &nbsp;Yes</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;No</p>
+  </ion-item>
+</ion-card>
+
+  <ion-card *ngIf="usingVMWare">
+	  <ion-item>
+    <ion-card-title>How many VM's?</ion-card-title>
+</ion-item>
+<ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;1-50</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;51-100</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;101-200</p>
+  </ion-item>
+  <ion-item>
+  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;200+</p>
+  </ion-item>
+</ion-card>
+
 
 </ion-content>
