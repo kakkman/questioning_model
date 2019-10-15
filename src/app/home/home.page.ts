@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
+import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -8,8 +11,26 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private alertCtrl: AlertController) {}
+accounts: any[] = [];
 
+ account = {
+   name: "",
+   location: "",
+   date: "",
+   info: "",
+   entitledDeployed: [],
+   cloudInfo: [],
+   questions: [],
+   report: []
+ };
+
+  constructor(private alertCtrl: AlertController, private storage: Storage) {
+    storage.get('accounts').then((val)=> {
+      if (val != null) {
+        this.accounts = val;
+      }
+    });
+  }
 
   async presentAlert() {
     const alert = await this.alertCtrl.create({
@@ -21,7 +42,7 @@ export class HomePage {
       },
       {
         name: 'location',
-        placeholder: 'Password',
+        placeholder: 'location',
       },
       {
       	name: 'date',
@@ -44,7 +65,25 @@ export class HomePage {
       {
         text: 'Create',
         handler: data => {
-          console.log('Cancel clicked');
+          console.log('Create clicked');
+          console.log(data);
+          console.log("THIS IS DATA TETS");
+          console.log(data.name);
+                    console.log("THIS IS DATA TETS");
+
+          let newAcct = {
+           name: data.name,
+           location: data.location,
+           date: data.date,
+           info: data.info,
+           entitledDeployed: [],
+           cloudInfo: [],
+           questions: [],
+           report: []
+           };
+           this.accounts.push(newAcct);
+           this.storage.set("accounts", this.accounts);
+
         }
       }
     ]

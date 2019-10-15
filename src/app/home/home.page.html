@@ -15,55 +15,23 @@
     <p>The IBM SCL Sales Enablement Tool was created to assist in finding new opportunity within your clients. It provides a guide to fill out information about your client to eventually lead you to new conversations.</p>
   </div>
 
-<ion-card>
+<ion-card *ngFor = "let account of accounts">
 	  <ion-item>
 	<ion-card-header>
-    <ion-card-title>Company ABC</ion-card-title>
-        <ion-card-subtitle>Alphabet Town, USA</ion-card-subtitle>
+    <ion-card-title>{{account.name}}</ion-card-title>
+        <ion-card-subtitle>{{account.location}}</ion-card-subtitle>
 
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
+    <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
     <ion-button fill="outline" slot="end" href="/acct-info">View</ion-button>
   </ion-item>
 
   <ion-card-content>
-    This is content, describing any specific footnotes, contacts, etc for the client. It can be any length desired
+    {{account.info}}
   </ion-card-content>
 </ion-card>
 
-<ion-card>
-	  <ion-item>
-	<ion-card-header>
-    <ion-card-title>Company ABC</ion-card-title>
-        <ion-card-subtitle>Alphabet Town, USA</ion-card-subtitle>
-
-  </ion-card-header>
-    <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
-    <ion-button fill="outline" slot="end" href="/acct-info">View</ion-button>
-  </ion-item>
-
-  <ion-card-content>
-    This is content, describing any specific footnotes, contacts, etc for the client. It can be any length desired
-  </ion-card-content>
-</ion-card>
-<ion-card>
-	  <ion-item>
-	<ion-card-header>
-    <ion-card-title>Company ABC</ion-card-title>
-        <ion-card-subtitle>Alphabet Town, USA</ion-card-subtitle>
-
-  </ion-card-header>
-    <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: 10-10-19</ion-label>
-    <ion-button fill="outline" slot="end">View</ion-button>
-  </ion-item>
-
-  <ion-card-content>
-    This is content, describing any specific footnotes, contacts, etc for the client. It can be any length desired
-  </ion-card-content>
-</ion-card>
 <ion-card>
 	  <ion-item>
 	<ion-card-header>
