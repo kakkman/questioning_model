@@ -19,7 +19,9 @@ export class HomePage {
         date: "",
         info: "",
         entitledDeployed: [],
-        cloudInfo: [],
+        clouds: [],
+        vmware: [],
+        docker: "",
         questions: [],
         report: [] };
 
@@ -71,7 +73,9 @@ export class HomePage {
                             date: data.date,
                             info: data.info,
                             entitledDeployed: [],
-                            cloudInfo: [],
+                            clouds: [],
+                            vmware: [],
+                            docker: "",
                             questions: [],
                             report: []
                         };

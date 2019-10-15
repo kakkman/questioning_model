@@ -24,7 +24,7 @@ cp4a1 = ["Are you building Cloud Native Applications?", "Yes", "No"];
 cp4a2 = ["Are you modernizing your legacy applications?", "Yes", "No"];
 cloudPakForApplications = [this.cp4a1, this.cp4a2];
 
-	account : any[] = [];
+	account: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private storage: Storage) { 
   this.route.queryParams.subscribe(params => {
@@ -37,10 +37,36 @@ cloudPakForApplications = [this.cp4a1, this.cp4a2];
   ngOnInit() {
   }
 
-  hasItem(item){
+  updateItem(event, answer, question){
+  	if(answer === question[1])
+  	{
+  		console.log("true");
+  		this.account.questions.push(question[0]);
+  	}
+  	else{
+
+  		console.log("false");
+  		let index = this.account.questions.indexOf(question[0])
+  		if( index != -1)
+  		{
+  			this.account.questions.splice(index, 1);
+  		}
+  	}
+  	this.storage.get("accounts").then((val) => { 
+
+  		let obj = val.find(x => x.name === this.account.name)
+  		let index = val.indexOf(obj);
+
+  		val[index] = this.account;
+  		this.storage.set("accounts", val);
+  	});
 
   }
-  
+
+  hasItem(item, choice) {
+  	return this.account.questions.indexOf(item) != -1
+  }
+
   navigateToPage(page) {
     let navigationExtras: NavigationExtras = {
             state: {

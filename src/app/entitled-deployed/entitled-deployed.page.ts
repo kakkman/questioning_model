@@ -22,7 +22,8 @@ export class EntitledDeployedPage implements OnInit {
 
  hybridDataManagement = ["Hybrid Data Management Platform", 
  	"IBM Integrated Analytics System", 
- 	"Cloud Pak for Data, Cloudera", 
+ 	"Cloud Pak for Data", 
+ 	"Cloudera", 
  	"MongoDB", 
  	"IBM Cloud Private for Data", 
  	"Db2", 
