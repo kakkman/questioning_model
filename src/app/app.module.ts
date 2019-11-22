@@ -18,7 +18,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 
 import { IonicStorageModule } from '@ionic/storage';
 
-
+import { AuthenticationService } from './authentication.service'; 
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { IonicStorageModule } from '@ionic/storage';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
-    HTTP
+    HTTP,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
