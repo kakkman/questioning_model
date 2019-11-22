@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 
 import { Storage } from '@ionic/storage';
 
@@ -25,12 +26,20 @@ export class HomePage {
         questions: [],
         report: [] };
 
-    constructor(private alertCtrl: AlertController, private storage: Storage, private router: Router) {
+    user: any; 
+    constructor(private alertCtrl: AlertController, private storage: Storage, private router: Router, public auth: AuthenticationService) {
         storage.get('accounts').then((val)=> {
             if (val != null) {
                 this.accounts = val;
             }
         });
+        let token = this.auth.tokens;
+        let userInfo = this.auth.appID.getUserInfo(this.auth.tokens.accessToken);
+        console.log(userInfo)
+        if(userInfo != null)
+        {
+            this.user = userInfo;
+        }
     }
 
     async presentAlert() {

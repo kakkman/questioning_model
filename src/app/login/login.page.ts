@@ -23,7 +23,8 @@ export class LoginPage implements OnInit {
 
   public async logIn() {
    	try {
-		await this.auth.appID.signin();
+		const tokens = await this.auth.appID.signin();
+    this.auth.tokens = tokens;
     	this.router.navigate(['home']);
 		} catch (e) {
 			console.log(e);

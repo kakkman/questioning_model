@@ -7,6 +7,7 @@ import AppID from 'ibmcloud-appid-js';
 export class AuthenticationService {
 
 	public appID = new AppID();
+	public tokens;
 
   	constructor() { 
   		this.appID.init({
