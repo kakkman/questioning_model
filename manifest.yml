@@ -1,0 +1,7 @@
+applications:
+- name: Questions
+  random-route: true
+  memory: 128M
+  path: ./www
+  buildpacks: 
+   - https://github.com/cloudfoundry/staticfile-buildpack

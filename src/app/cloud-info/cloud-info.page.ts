@@ -104,10 +104,21 @@ usingVMWare = false;
   	if(e.currentTarget.checked)
   	{
   		this.usingVMWare = true;
+      this.account.vmware = true;
   	}
   	else{
   		this.usingVMWare = false;
+      this.account.vmware = false;
   	}
+    this.storage.get("accounts").then((val) => { 
+
+      let obj = val.find(x => x.name === this.account.name)
+      let index = val.indexOf(obj);
+
+      console.log(index);
+      val[index] = this.account;
+      this.storage.set("accounts", val);
+    });
   }
 
 }

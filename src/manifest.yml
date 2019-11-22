@@ -1,0 +1,4 @@
+applications:
+- name: QuestionModel
+  random-route: true
+  memory: 128M

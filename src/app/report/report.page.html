@@ -1,9 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>report</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header translucent>
+      <ion-toolbar color="secondary">
+      	 <ion-buttons slot="start" color="">
+          <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
+        </ion-buttons>
+        <ion-title>Report: {{account.name}}</ion-title>  
+      </ion-toolbar>
+    </ion-header>
 
 <ion-content>
+	<ion-card>
+	  <ion-item>
+	<ion-card-header>
+    <ion-card-title>{{account.name}} Breakdown and Summary</ion-card-title>
+  </ion-card-header>
+  </ion-item>
+  <ion-item>IBM Services</ion-item>
+  <p *ngFor="let item of account.entitledDeployed">&nbsp;{{item}}</p>
+  <ion-item>
+  </ion-item>
+</ion-card>
+<ion-card>
+	<ion-card-title>{{account.name}} Recommended Sales Play</ion-card-title>
+</ion-card>
+<ion-card *ngFor = "let play of plays">
+<ion-card-title>{{play.explanation}}</ion-card-title>
+		<ion-item><a href = {{play.link}}>Click Here</a></ion-item>
+</ion-card>
+
 
 </ion-content>

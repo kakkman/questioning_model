@@ -12,17 +12,17 @@
   <ion-item *ngFor= "let item of cloudPakForData">
     {{item[0]}}
 	<ion-item *ngFor = "let choice of item | slice:1; let i = index">
-  	<ion-checkbox disabled="false" (ionChange)="updateItem($event, choice, item)" [checked]="(hasItem(item) && i == 0)" ></ion-checkbox> &nbsp;{{choice}}
+  	<ion-checkbox disabled="false" (ionChange)="updateItem($event, choice, item)" [checked]="hasItem(item, choice)" ></ion-checkbox> &nbsp;{{choice}}
  	 </ion-item>
 </ion-item>
 
   <ion-item *ngFor= "let item of cloudPakForApplications; let i = index">
     {{item[0]}}
 	<ion-item *ngFor = "let choice of item | slice:1;">
-  	<ion-checkbox disabled="false" (ionChange)="updateItem($event, choice, item)"></ion-checkbox> &nbsp;{{choice}}
+  	<ion-checkbox disabled="false" (ionChange)="updateItem($event, choice, item)" [checked]="hasItem(item, choice)"></ion-checkbox> &nbsp;{{choice}}
  	 </ion-item>
 </ion-item>
 
-<ion-button expand="block"> Generate New Report </ion-button>
+<ion-button expand="block" (click)="navigateToPage('report')"> Generate New Report </ion-button>
 
 </ion-content>

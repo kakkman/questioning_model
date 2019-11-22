@@ -20,7 +20,7 @@ export class HomePage {
         info: "",
         entitledDeployed: [],
         clouds: [],
-        vmware: [],
+        vmware: false,
         docker: "",
         questions: [],
         report: [] };
@@ -74,7 +74,7 @@ export class HomePage {
                             info: data.info,
                             entitledDeployed: [],
                             clouds: [],
-                            vmware: [],
+                            vmware: false,
                             docker: "",
                             questions: [],
                             report: []

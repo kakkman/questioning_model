@@ -38,20 +38,37 @@ cloudPakForApplications = [this.cp4a1, this.cp4a2];
   }
 
   updateItem(event, answer, question){
+
+    console.log(this.account.questions.length)
+    for(var i = 0; i < this.account.questions.length; i++) {
+       if(this.account.questions[i][0] === question[0]) {
+          this.account.questions.splice(i, 1);
+      }
+    }
+
   	if(answer === question[1])
   	{
-  		console.log("true");
-  		this.account.questions.push(question[0]);
+  		//console.log("true");
+      let index = this.account.questions.indexOf([question[0], question[2]])
+      //console.log(index)
+      if( index != -1)
+      {
+        this.account.questions.splice(index, 1);
+      }
+  		this.account.questions.push([question[0], question[1]]);
   	}
   	else{
 
-  		console.log("false");
-  		let index = this.account.questions.indexOf(question[0])
+  		//console.log("false");
+  		let index = this.account.questions.indexOf([question[0], question[1]])
+      //console.log(index);
   		if( index != -1)
   		{
   			this.account.questions.splice(index, 1);
   		}
+      this.account.questions.push([question[0],question[2]])
   	}
+    //console.log(this.account.questions);
   	this.storage.get("accounts").then((val) => { 
 
   		let obj = val.find(x => x.name === this.account.name)
@@ -63,8 +80,21 @@ cloudPakForApplications = [this.cp4a1, this.cp4a2];
 
   }
 
-  hasItem(item, choice) {
-  	return this.account.questions.indexOf(item) != -1
+  hasItem(question, choice) {
+    /*console.log(this.account.questions[0])
+    console.log("question : " + question[0] )
+    console.log("Choice " + choice);
+    console.log(this.account.questions.indexOf([question[0], choice]) != -1) */
+    if(this.account.questions != [])
+    {
+      for(var i = 0; i < this.account.questions.length; i++) {
+         if(this.account.questions[i][0] === question[0] &&
+             this.account.questions[i][1] === choice) {
+           return true;
+        }
+      }
+      return false;
+    }
   }
 
   navigateToPage(page) {
@@ -75,5 +105,7 @@ cloudPakForApplications = [this.cp4a1, this.cp4a2];
         };
         this.router.navigate([page], navigationExtras);
   }
+
+
 
 }
