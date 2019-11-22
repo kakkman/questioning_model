@@ -10,17 +10,11 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-
-  private username: string = '';
-  private password: string = '';
-
   constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService){
-
+  	//TODO: IF LOGGED IN, AUTO NAVIGATE
   }
 
   ngOnInit(){
-
   }
 
   ionViewDidLoad() {
@@ -29,14 +23,10 @@ export class LoginPage implements OnInit {
 
   public async logIn() {
    	try {
-
-		const tokens = await this.auth.appID.signin();
-		let userInfo = this.auth.appID.getUserInfo(tokens.accessToken);
-		console.log(userInfo);
+		await this.auth.appID.signin();
     	this.router.navigate(['home']);
-	} catch (e) {
-		console.log(e);
-	}
+		} catch (e) {
+			console.log(e);
+		}
   }
-
 }
