@@ -31,9 +31,7 @@ export class LoginPage implements OnInit {
         that.auth.userInfo = res;
         console.log(res.email);
         that.auth.database.get(that.auth.userInfo.email).then(function(doc) {
-          var obj = JSON.parse(doc);
-          console.log(obj);
-
+           console.log("Account Exists. Logging in.");
         }).catch(function (err) {
           console.log(err);
           //new account does not exist, create account.
