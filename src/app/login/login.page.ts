@@ -21,11 +21,35 @@ export class LoginPage implements OnInit {
     console.log('ionViewDidLoad LoginPage');
   }
 
+//logs user in and creates database entry if it didn't exist already
   public async logIn() {
+    let that = this;
    	try {
-		const tokens = await this.auth.appID.signin();
-    this.auth.tokens = tokens;
-    	this.router.navigate(['home']);
+  		const tokens = await this.auth.appID.signin();
+      this.auth.tokens = tokens;
+      this.auth.appID.getUserInfo(this.auth.tokens.accessToken).then(res => {
+        that.auth.userInfo = res;
+        console.log(res.email);
+        that.auth.database.get(that.auth.userInfo.email).then(function(doc) {
+          var obj = JSON.parse(doc);
+          console.log(obj);
+
+        }).catch(function (err) {
+          console.log(err);
+          //new account does not exist, create account.
+          if(err.status == '404')
+          {
+            that.auth.database.put({'_id':that.auth.userInfo.email,'name': that.auth.userInfo.name, 'email': that.auth.userInfo.email}).then((resp) => {
+              console.log(resp)
+              console.log("above is response");
+            }).catch((e) => {
+                console.log(e);
+                return e; 
+            });
+          }
+        }); 
+      });
+      this.router.navigate(['home']);
 		} catch (e) {
 			console.log(e);
 		}
