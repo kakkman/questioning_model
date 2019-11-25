@@ -2,15 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-entitled-deployed',
   templateUrl: './entitled-deployed.page.html',
   styleUrls: ['./entitled-deployed.page.scss'],
 })
-export class EntitledDeployedPage implements OnInit {
-
+export class EntitledDeployedPage {
 
  dataScienceAndAI: any[] = ["Watson Studio",
   "Watson Machine Learning",
@@ -103,10 +101,9 @@ IBMCognitiveApplications = ["Watson Media & Weather",
 "Watson Customer Engagement",
 "Watson Talent & Collaboration"];
 
+  account: any;
 
-account: any;
-
-  constructor(private route: ActivatedRoute, private router: Router, private storage: Storage) { 
+  constructor(private route: ActivatedRoute, private router: Router) { 
   	this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.account = this.router.getCurrentNavigation().extras.state.acct;
@@ -114,39 +111,25 @@ account: any;
     });
   }
 
-  ngOnInit() {
-  }
-
   navigateToPage(page) {
   	let navigationExtras: NavigationExtras = {
-            state: {
-                acct: this.account
-            }
-        };
-        this.router.navigate([page], navigationExtras);
+      state: {
+        acct: this.account
+      }
+    };
+    this.router.navigate([page], navigationExtras);
   }
 
   checkedItem(e, item) {
   	if(e.currentTarget.checked) {
   		this.account.entitledDeployed.push(item);
   	}
-  	else{
+  	else {
   		var index = this.account.entitledDeployed.indexOf(item);
   		if(index!= -1) {
   			this.account.entitledDeployed.splice(index, 1);
   		}
   	}
-
-  	console.log(this.account.entitledDeployed);
-  	this.storage.get("accounts").then((val) => { 
-
-  		let obj = val.find(x => x.name === this.account.name)
-  		let index = val.indexOf(obj);
-
-  		console.log(index);
-  		val[index] = this.account;
-  		this.storage.set("accounts", val);
-  	});
   }
 
   hasItem(item)
@@ -154,8 +137,4 @@ account: any;
   	let hasItem = this.account.entitledDeployed.indexOf(item) != -1;
   	return hasItem;
   }
-
-
-//reading in products from CSV
-  
 }
