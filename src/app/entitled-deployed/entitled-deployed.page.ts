@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
+
 
 @Component({
   selector: 'app-entitled-deployed',
@@ -101,13 +103,19 @@ IBMCognitiveApplications = ["Watson Media & Weather",
 "Watson Customer Engagement",
 "Watson Talent & Collaboration"];
 
-  account: any;
+  public account: any;
 
-  constructor(private route: ActivatedRoute, private router: Router) { 
+  public products: any;
+
+  constructor(private route: ActivatedRoute, private router: Router, private auth: AuthenticationService) { 
   	this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.account = this.router.getCurrentNavigation().extras.state.acct;
       }
+    });
+    this.auth.entitledDeployedDB.allDocs({include_docs: true}).then(res => {
+      this.products = res.rows;
+      console.log(this.products);
     });
   }
 

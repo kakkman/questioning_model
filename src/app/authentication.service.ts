@@ -18,7 +18,15 @@ export class AuthenticationService {
 
 	public accounts;
 
+
+	//database for entitledDemployed
+
+	public entitledDeployedDB;
+
+
   	constructor() { 
+
+  		//all for user information collection 
   		this.appID.init({
   			clientId: "cfff1466-8996-49f5-acb2-7a316cb082d7",
   			discoveryEndpoint: "https://us-south.appid.cloud.ibm.com/oauth/v4/547b2dd4-7a0f-4af5-b696-416798121de4/.well-known/openid-configuration"
@@ -40,6 +48,16 @@ export class AuthenticationService {
 			}
    		};
    		this.database.sync(this.remote, options);
+
+   		//database for entitled deployed
+   		this.entitledDeployedDB = new PouchDB('https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/entitled_deployed');
+   		this.entitledDeployedDB.sync(this.remote, options);
+   		console.log("Getting all docs")
+   		console.log(this.entitledDeployedDB.allDocs({include_docs: true}));
+
+   		//database for cloud offerings
+
+   		//database for prospecting questions
 	}
 
 }
