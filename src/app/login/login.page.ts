@@ -42,14 +42,15 @@ export class LoginPage implements OnInit {
               console.log("above is response");
             }).catch((e) => {
                 console.log(e);
-                return e; 
             });
           }
         }); 
       });
       this.router.navigate(['home']);
+
 		} catch (e) {
 			console.log(e);
 		}
+
   }
 }
