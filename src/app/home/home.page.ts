@@ -17,33 +17,13 @@ export class HomePage {
     private router: Router, 
     public auth: AuthenticationService) {
 
-//update list of accounts
-
+    //load list of accounts
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         console.log(this.router.getCurrentNavigation().extras);
         if(this.router.getCurrentNavigation().extras.state.accountInfo != null)
         {
           this.accounts = this.router.getCurrentNavigation().extras.state.accountInfo["accounts"];
-        }
-        //account was updated by one of the child pages
-        else if(this.router.getCurrentNavigation().extras.state.acct != null)
-        {
-          let account = this.router.getCurrentNavigation().extras.state.acct;
-          this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
-            var string= doc
-            if(doc["accounts"] != null)
-            {
-              for(var i = 0; i < doc["accounts"].length; i++)
-              {
-                if (doc["accounts"][i].name === account.name)
-                {
-                  doc["accounts"][i] = account;
-                }
-              }
-              this.auth.database.put(doc);
-            }
-          });
         }
       }
     });
@@ -105,7 +85,9 @@ export class HomePage {
               }
               doc["accounts"].unshift(newAcct);
               //TODO: CHECK TO SEE DUPLICATE ACCOUNTS, ETC
-              that.auth.database.put(doc);
+              that.auth.database.put(doc).then(res => {
+                that.accounts.unshift(newAcct);
+              });
             });                    
         }
       }]    

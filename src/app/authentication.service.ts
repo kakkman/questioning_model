@@ -16,7 +16,6 @@ export class AuthenticationService {
 
 	public userInfo;
 
-
 	public accounts;
 
   	constructor() { 
