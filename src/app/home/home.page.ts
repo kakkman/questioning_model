@@ -3,8 +3,6 @@ import { AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 
-import { Storage } from '@ionic/storage';
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -16,14 +14,37 @@ export class HomePage {
 
   constructor(private route: ActivatedRoute, 
     private alertCtrl: AlertController, 
-    private storage: Storage, 
     private router: Router, 
     public auth: AuthenticationService) {
 
+//update list of accounts
+
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        console.log(this.router.getCurrentNavigation().extras.state.accountInfo);
-        this.accounts = this.router.getCurrentNavigation().extras.state.accountInfo["accounts"];
+        console.log(this.router.getCurrentNavigation().extras);
+        if(this.router.getCurrentNavigation().extras.state.accountInfo != null)
+        {
+          this.accounts = this.router.getCurrentNavigation().extras.state.accountInfo["accounts"];
+        }
+        //account was updated by one of the child pages
+        else if(this.router.getCurrentNavigation().extras.state.acct != null)
+        {
+          let account = this.router.getCurrentNavigation().extras.state.acct;
+          this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
+            var string= doc
+            if(doc["accounts"] != null)
+            {
+              for(var i = 0; i < doc["accounts"].length; i++)
+              {
+                if (doc["accounts"][i].name === account.name)
+                {
+                  doc["accounts"][i] = account;
+                }
+              }
+              this.auth.database.put(doc);
+            }
+          });
+        }
       }
     });
   }

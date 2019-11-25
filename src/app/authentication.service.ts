@@ -31,7 +31,6 @@ export class AuthenticationService {
   		this.username = "bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix"
   		this.password = "88db489b6233f8de00fe7d278e8c48bbf7c6825608901e360b7a3f92a5b62915"
 
-
   		let options = {
 		    //live: true,
 		    //retry: true,
@@ -41,34 +40,7 @@ export class AuthenticationService {
 		    	password: this.password
 			}
    		};
-
-   		//this.database.sync(this.remote, options);
    		this.database.sync(this.remote, options);
-
-   		/*this.database.post({ '_id':'9', 'name':'John', 'age':30,}).then((resp) => {
-   			console.log(resp)
-   			console.log("above is response");
-   		}).catch((e) => {
-       console.log(e);
-       return e; 
-     }); */
-
-
-	}
-
-	public loadAccounts()
-	{
-		var accountList: any = [];
-		this.database.get(this.userInfo.email).then(function(doc) {
-			var obj = JSON.parse(doc);
-			console.log(obj);
-
-		}).catch(function (err) {
-			console.log(err);
-		});
-		//JSON.parse
-		
-		return accountList;
 	}
 
 }
