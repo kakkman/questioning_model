@@ -33,15 +33,14 @@ export class HomePage {
                 this.accounts = val;
             }
         });
-        let token = this.auth.tokens;
-        let userInfo = this.auth.appID.getUserInfo(this.auth.tokens.accessToken);
-        console.log(userInfo)
-        if(userInfo != null)
-        {
-            this.user = userInfo;
-        }
-    }
 
+        //new stuff here. load from db
+
+
+        //this.accounts = this.auth.loadAccounts();
+
+    }
+    
     async presentAlert() {
         const alert = await this.alertCtrl.create({
             message: 'Create a new client profile',
@@ -88,11 +87,19 @@ export class HomePage {
                             questions: [],
                             report: []
                         };
-                        this.accounts.unshift(newAcct);
-                        this.storage.set("accounts", this.accounts);
-                    }
-                }
-            ]
+
+                        let that = this;
+                        this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
+                            var string= doc
+                            if(doc["accounts"] == null)
+                            {
+                               doc["accounts"] = [];
+                            }
+                            doc["accounts"].unshift(newAcct);
+                            //TODO: CHECK TO SEE DUPLICATE ACCOUNTS, ETC
+                            that.auth.database.put(doc);
+                        });                    
+                }}]    
         });
         await alert.present(); 
     }

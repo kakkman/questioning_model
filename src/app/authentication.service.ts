@@ -65,17 +65,6 @@ export class AuthenticationService {
 
 		}).catch(function (err) {
 			console.log(err);
-			//new account does not exist, create account.
-			if(err.status == '404')
-			{
-				this.database.post({'name': this.userInfo.name, 'email': this.userInfo.email}).then((resp) => {
-		   			console.log(resp)
-		   			console.log("above is response");
-		   		}).catch((e) => {
-		       		console.log(e);
-       				return e; 
-     			});
-			}
 		});
 		//JSON.parse
 		
