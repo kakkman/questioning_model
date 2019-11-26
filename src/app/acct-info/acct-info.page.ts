@@ -16,16 +16,14 @@ export class AcctInfoPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.account = this.router.getCurrentNavigation().extras.state.acct;
-        let account = this.router.getCurrentNavigation().extras.state.acct;
           that.auth.database.get(that.auth.userInfo.email).then(function(doc) {
-            var string= doc
             if(doc["accounts"] != null)
             {
               for(var i = 0; i < doc["accounts"].length; i++)
               {
-                if (doc["accounts"][i].name === account.name)
+                if (doc["accounts"][i].name === that.account.name)
                 {
-                  doc["accounts"][i] = account;
+                  doc["accounts"][i] = that.account;
                 }
               }
               that.auth.database.put(doc);
