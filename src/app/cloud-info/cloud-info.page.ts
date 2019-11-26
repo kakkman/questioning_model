@@ -13,7 +13,7 @@ export class CloudInfoPage implements OnInit {
 
 account: any;
 cloudsInUse: any[] = [];
-  constructor(private route: ActivatedRoute, private router: Router, private storage: Storage) { 
+  constructor(private route: ActivatedRoute, private router: Router) { 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.account = this.router.getCurrentNavigation().extras.state.acct;
@@ -45,15 +45,6 @@ usingVMWare = false;
   			this.account.clouds.splice(index, 1);
   		}
   	}
-    this.storage.get("accounts").then((val) => { 
-
-      let obj = val.find(x => x.name === this.account.name)
-      let index = val.indexOf(obj);
-
-      console.log(index);
-      val[index] = this.account;
-      this.storage.set("accounts", val);
-    });
     console.log(this.account)
 
   }
@@ -67,16 +58,6 @@ usingVMWare = false;
   updateService(index, service) {
 
     this.account.clouds[index].services.push(service);
-
-    this.storage.get("accounts").then((val) => { 
-
-      let obj = val.find(x => x.name === this.account.name)
-      let index = val.indexOf(obj);
-
-      console.log(index);
-      val[index] = this.account;
-      this.storage.set("accounts", val);
-    });
     console.log(this.account)
 
   }
