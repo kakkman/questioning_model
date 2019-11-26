@@ -16,7 +16,7 @@
   </ion-card-header>
   </ion-item>
   <ion-item *ngFor="let product of category.doc.products">
-    <ion-checkbox disabled="false" (ionChange)="checkedItem($event, item)" [checked]="hasItem(item)"></ion-checkbox><p> &nbsp;{{product}}</p>
+    <ion-checkbox disabled="false" (ionChange)="checkedItem($event, product)" [checked]="hasItem(product)"></ion-checkbox><p> &nbsp;{{product}}</p>
   </ion-item>
 </ion-card>
 </ion-content>

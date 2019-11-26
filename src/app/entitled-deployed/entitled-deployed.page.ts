@@ -51,7 +51,12 @@ export class EntitledDeployedPage {
 
   hasItem(item)
   {
+    if(item != null)
+    {
   	let hasItem = this.account.entitledDeployed.indexOf(item) != -1;
-  	return hasItem;
+    return hasItem;
+    }
+    return false;
+  	
   }
 }
