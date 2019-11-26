@@ -23,6 +23,9 @@ export class AuthenticationService {
 
 	public entitledDeployedDB;
 
+	//database for prospecting
+	public prospectingDB;
+
 
   	constructor() { 
 
@@ -52,12 +55,12 @@ export class AuthenticationService {
    		//database for entitled deployed
    		this.entitledDeployedDB = new PouchDB('https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/entitled_deployed');
    		this.entitledDeployedDB.sync(this.remote, options);
-   		console.log("Getting all docs")
-   		console.log(this.entitledDeployedDB.allDocs({include_docs: true}));
 
    		//database for cloud offerings
 
    		//database for prospecting questions
+   		this.prospectingDB = new PouchDB('https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/prospecting_questions');
+   		this.prospectingDB.sync(this.remote, options);
 	}
 
 }

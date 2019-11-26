@@ -8,20 +8,14 @@
     </ion-header>
 <ion-content>
 
-
-  <ion-item *ngFor= "let item of cloudPakForData">
-    {{item[0]}}
-	<ion-item *ngFor = "let choice of item | slice:1; let i = index">
-  	<ion-checkbox disabled="false" (ionChange)="updateItem($event, choice, item)" [checked]="(hasItem(item) && i == 0)" ></ion-checkbox> &nbsp;{{choice}}
- 	 </ion-item>
+<!--work with this-->
+<div *ngFor= "let question of questions">
+  <ion-item radio-group *ngFor = "let info of question.doc.questions">
+          {{info.question}}
+        <ion-radio item-right value="good"></ion-radio><p>&nbsp;{{info.good}}</p>
+        <ion-radio item-right value="bad"></ion-radio><p>&nbsp;{{info.bad}}</p>
 </ion-item>
-
-  <ion-item *ngFor= "let item of cloudPakForApplications; let i = index">
-    {{item[0]}}
-	<ion-item *ngFor = "let choice of item | slice:1;">
-  	<ion-checkbox disabled="false" (ionChange)="updateItem($event, choice, item)"></ion-checkbox> &nbsp;{{choice}}
- 	 </ion-item>
-</ion-item>
+ </div>
 
 <ion-button expand="block"> Generate New Report </ion-button>
 
