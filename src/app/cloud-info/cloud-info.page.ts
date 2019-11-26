@@ -10,10 +10,8 @@ import { Storage } from '@ionic/storage';
 })
 export class CloudInfoPage implements OnInit {
 
-
   account: any;
   cloudsInUse: any[] = [];
-  usingVMWare = false;
 
   constructor(private route: ActivatedRoute, private router: Router) { 
     this.route.queryParams.subscribe(params => {
@@ -71,16 +69,6 @@ export class CloudInfoPage implements OnInit {
       }
     };
     this.router.navigate([page], navigationExtras);
-  }
-
-  updateVMWare(e) {
-  	if(e.currentTarget.checked)
-  	{
-  		this.usingVMWare = true;
-  	}
-  	else{
-  		this.usingVMWare = false;
-  	}
   }
 
 }

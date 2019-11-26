@@ -70,7 +70,7 @@ export class HomePage {
               info: data.info,
               entitledDeployed: [],
               clouds: [],
-              vmware: [],
+              vmware: "",
               docker: "",
               questions: [],
               report: []

@@ -1,107 +1,92 @@
 <ion-header translucent>
-      <ion-toolbar color="secondary">
-      	 <ion-buttons slot="start" color="">
-          <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
-        </ion-buttons>
-        <ion-title>Cloud Info: {{account.name}}</ion-title>  
-      </ion-toolbar>
-    </ion-header>
+  <ion-toolbar color="secondary">
+  	 <ion-buttons slot="start" color="">
+      <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
+    </ion-buttons>
+    <ion-title>Cloud Info: {{account.name}}</ion-title>  
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
 	<ion-card>
-	  <ion-item>
-	<ion-card-header>
-    <ion-card-title>Which Cloud Provider(s) is your client using today?</ion-card-title>
-  </ion-card-header>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'IBM Cloud')" [checked]="hasCloud('IBM Cloud')"></ion-checkbox><p> &nbsp;IBM Cloud</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Amazon Web Services')" [checked]="hasCloud('Amazon Web Services')"></ion-checkbox><p> &nbsp;Amazon Web Services</p>
-  </ion-item>
-<ion-item>
-  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Google')" [checked]="hasCloud('Google')"></ion-checkbox><p> &nbsp;Google</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Microsoft')" [checked]="hasCloud('Microsoft')"></ion-checkbox><p> &nbsp;Microsoft</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Other')" [checked]="hasCloud('Other')"></ion-checkbox><p> &nbsp;Other</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;None</p>
-  </ion-item>
-</ion-card>
-
-<ion-card *ngFor="let cloud of account.clouds; let i = index">
-	 <ion-item>
-    <ion-card-title>{{cloud.name}}</ion-card-title>
+  	<ion-item>
+    	<ion-card-header>
+        <ion-card-title>Which Cloud Provider(s) is your client using today?</ion-card-title>
+      </ion-card-header>
     </ion-item>
     <ion-item>
-  	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'IaaS')" [checked]="hasService(i, 'IaaS')"></ion-checkbox><p> &nbsp;IaaS</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'PaaS')" [checked]="hasService(i, 'PaaS')"></ion-checkbox><p> &nbsp;PaaS</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'Storage')" [checked]="hasService(i, 'Storage')"></ion-checkbox><p> &nbsp;Storage</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'AI')" [checked]="hasService(i, 'AI')"></ion-checkbox><p> &nbsp;AI</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'Analytics')" [checked]="hasService(i, 'Analytics')"></ion-checkbox><p> &nbsp;Analytics</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'Security')" [checked]="hasService(i, 'Security')"></ion-checkbox><p> &nbsp;Security</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false" (ionChange) = "updateService(index, 'Kubernetes')" [checked]="hasService(i, 'Kubernetes')"></ion-checkbox><p> &nbsp;Kubernetes</p>
-  </ion-item>
-</ion-card>
+    	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'IBM Cloud')" [checked]="hasCloud('IBM Cloud')"></ion-checkbox><p> &nbsp;IBM Cloud</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Amazon Web Services')" [checked]="hasCloud('Amazon Web Services')"></ion-checkbox><p> &nbsp;Amazon Web Services</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Google')" [checked]="hasCloud('Google')"></ion-checkbox><p> &nbsp;Google</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Microsoft')" [checked]="hasCloud('Microsoft')"></ion-checkbox><p> &nbsp;Microsoft</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange)="addValue($event, 'Other')" [checked]="hasCloud('Other')"></ion-checkbox><p> &nbsp;Other</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;None</p>
+    </ion-item>
+  </ion-card>
 
+  <ion-card *ngFor="let cloud of account.clouds; let i = index">
+  	<ion-item>
+      <ion-card-title>{{cloud.name}}</ion-card-title>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'IaaS')" [checked]="hasService(i, 'IaaS')"></ion-checkbox><p> &nbsp;IaaS</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'PaaS')" [checked]="hasService(i, 'PaaS')"></ion-checkbox><p> &nbsp;PaaS</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'Storage')" [checked]="hasService(i, 'Storage')"></ion-checkbox><p> &nbsp;Storage</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'AI')" [checked]="hasService(i, 'AI')"></ion-checkbox><p> &nbsp;AI</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'Analytics')" [checked]="hasService(i, 'Analytics')"></ion-checkbox><p> &nbsp;Analytics</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'Security')" [checked]="hasService(i, 'Security')"></ion-checkbox><p> &nbsp;Security</p>
+    </ion-item>
+    <ion-item>
+    	<ion-checkbox disabled="false" (ionChange) = "updateService(index, 'Kubernetes')" [checked]="hasService(i, 'Kubernetes')"></ion-checkbox><p> &nbsp;Kubernetes</p>
+    </ion-item>
+  </ion-card>
 
-<ion-card>
-	  <ion-item>
-    <ion-card-title>Is your client using Docker?</ion-card-title>
-</ion-item>
-<ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;Yes</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;No</p>
-  </ion-item>
-</ion-card>
+  <ion-card>
+  	<ion-item>
+      <ion-card-title>Is your client using Docker?</ion-card-title>
+    </ion-item>
+    <ion-radio-group [(ngModel)]="this.account.docker">
+      <ion-item>
+      	<ion-radio disabled="false" value=true></ion-radio><p> &nbsp;Yes</p>
+      </ion-item>
+      <ion-item>
+      	<ion-radio disabled="false" value=false></ion-radio><p> &nbsp;No</p>
+      </ion-item>
+    </ion-radio-group>
+  </ion-card>
   
   <ion-card>
 	  <ion-item>
-    <ion-card-title>Is your client using VMWare?</ion-card-title>
-</ion-item>
-<ion-item>
-  	<ion-checkbox disabled="false" (ionChange)="updateVMWare($event)"></ion-checkbox><p> &nbsp;Yes</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;No</p>
-  </ion-item>
-</ion-card>
-
-  <ion-card *ngIf="usingVMWare">
-	  <ion-item>
-    <ion-card-title>How many VM's?</ion-card-title>
-</ion-item>
-<ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;1-50</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;51-100</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;101-200</p>
-  </ion-item>
-  <ion-item>
-  	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;200+</p>
-  </ion-item>
-</ion-card>
-
+      <ion-card-title>Is your client using VMWare?</ion-card-title>
+    </ion-item>
+    <ion-radio-group [(ngModel)]="this.account.vmware">
+      <ion-item>
+        <ion-radio disabled="false" value=true></ion-radio><p> &nbsp;Yes</p>
+      </ion-item>
+      <ion-item>
+        <ion-radio disabled="false" value=false></ion-radio><p> &nbsp;No</p>
+      </ion-item>
+    </ion-radio-group>
+  </ion-card>
 
 </ion-content>
