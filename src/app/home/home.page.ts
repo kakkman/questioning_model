@@ -30,6 +30,7 @@ export class HomePage {
   }
 
   async presentAlert() {
+    let that = this;
     const alert = await this.alertCtrl.create({
       message: 'Create a new client profile',
       inputs: [
@@ -75,8 +76,6 @@ export class HomePage {
               questions: [],
               report: []
             };
-
-            let that = this;
             this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
               var string= doc
               if(doc["accounts"] == null)

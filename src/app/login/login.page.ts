@@ -46,7 +46,7 @@ export class LoginPage {
             console.log("Creating Account...");
             that.auth.database.put({'_id':that.auth.userInfo.email,'name': that.auth.userInfo.name, 'email': that.auth.userInfo.email}).then((resp) => {
               console.log(resp)
-              this.router.navigate(['home']);
+              that.router.navigate(['home']);
             }).catch((e) => {
               console.log(e);
             });
