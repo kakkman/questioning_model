@@ -12,8 +12,8 @@
 <div *ngFor= "let question of questions">
   <ion-item radio-group *ngFor = "let info of question.doc.questions">
           {{info.question}}
-        <ion-radio item-right value="good"></ion-radio><p>&nbsp;{{info.good}}</p>
-        <ion-radio item-right value="bad"></ion-radio><p>&nbsp;{{info.bad}}</p>
+        <ion-radio item-right value=info.good (click)="updateItem(question.doc.name, info.question, info.good)" [checked]="hasItem(info.question, info.good)"></ion-radio><p>&nbsp;{{info.good}}</p>
+        <ion-radio item-right value=info.bad (click)="updateItem(question.doc.name, info.question, info.bad)" [checked]="hasItem(info.question, info.bad)"></ion-radio><p>&nbsp;{{info.bad}}</p>
 </ion-item>
  </div>
 

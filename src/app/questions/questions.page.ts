@@ -27,26 +27,39 @@ export class QuestionsPage implements OnInit {
   ngOnInit() {
   }
 
-  updateItem(event, answer, question){
-  	if(answer === question[1])
-  	{
-  		console.log("true");
-  		this.account.questions.push(question[0]);
-  	}
-  	else{
+  updateItem(product1, question1, answer1){
+    let obj = this.account.questions.find(x => x.question === question1);
+    let index = this.account.questions.indexOf(obj);
+    if(index != -1)
+    {
+      obj.answer = answer1;
+      this.account.questions[index] = obj;
+    }
+    else
+    {
+      let newAnswer = { 
+        product: product1,
+        question: question1,
+        answer: answer1
+      }
+      this.account.questions.push(newAnswer);
+    }
 
-  		console.log("false");
-  		let index = this.account.questions.indexOf(question[0])
-  		if( index != -1)
-  		{
-  			this.account.questions.splice(index, 1);
-  		}
-  	}
   }
 
-  hasItem(item, choice) {
-  	return this.account.questions.indexOf(item) != -1
+  hasItem(question, answer) {
+    console.log("Checking to see if it has");
+    let obj = this.account.questions.find(x => x.question === question);
+    let index = this.account.questions.indexOf(obj);
+    console.log(index)
+    if(index != -1)
+    {
+      console.log("THIS IS THE VALUE " + obj.answer);
+    }
+  	return (index != -1 && obj.answer === answer);
   }
+
+
 
   navigateToPage(page) {
     let navigationExtras: NavigationExtras = {
