@@ -55,6 +55,8 @@ filter(element) {
     return this.account.questions.some(item => JSON.stringify(item) == JSON.stringify(obj));
 
   })
+        console.log(allPaths)
+
     return allPaths;
   }
 

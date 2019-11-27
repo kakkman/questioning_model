@@ -6,32 +6,27 @@
         <ion-title>Report: {{account.name}}</ion-title>  
       </ion-toolbar>
     </ion-header>
-
 <ion-content>
 	<ion-card>
 	  <ion-item>
-	<ion-card-header>
-    <ion-card-title>{{account.name}} Breakdown and Summary</ion-card-title>
-  </ion-card-header>
-  </ion-item>
-  <ion-item>IBM Services</ion-item>
-  <p *ngFor="let item of account.entitledDeployed">&nbsp;{{item}}</p>
-  <ion-item>
-  </ion-item>
-</ion-card>
-<ion-card>
-	<ion-card-title>{{account.name}} Recommended Sales Play</ion-card-title>
-</ion-card>
-<ng-container *ngFor="let product of questions">
-  <ng-container *ngIf="product.doc.questions != []">
-    <ion-card>
-      <ion-card-title>We recommend this sales play: {{product.doc.name}}</ion-card-title>
-      		<ion-item>Because of the way you answered the following questions:</ion-item>
-          <p *ngFor = "let goodPath of filter(product)">&nbsp;{{goodPath.question}}</p>
-          <ion-item>Link to sales play</ion-item>
-    </ion-card>
+	    <ion-card-header>
+        <ion-card-title>{{account.name}} Breakdown and Summary</ion-card-title>
+      </ion-card-header>
+    </ion-item>
+    <ion-item>IBM Services</ion-item>
+    <p *ngFor="let item of account.entitledDeployed">&nbsp;{{item}}</p>
+  </ion-card>
+  <ion-card>
+  	<ion-card-title>{{account.name}} Recommended Sales Play</ion-card-title>
+  </ion-card>
+  <ng-container *ngFor="let product of questions">
+    <ng-container *ngIf="product.doc.questions != []">
+      <ion-card>
+        <ion-card-title>We recommend this sales play: {{product.doc.name}}</ion-card-title>
+        		<ion-item>Because of the way you answered the following questions:</ion-item>
+            <p *ngFor = "let goodPath of filter(product)">&nbsp;{{goodPath.question}} {{goodPath.good}}</p>
+            <ion-item><a href={{product.url}}>Link to sales play</a></ion-item>
+      </ion-card>
+    </ng-container>
   </ng-container>
-</ng-container>
-
-
 </ion-content>
