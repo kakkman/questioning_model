@@ -22,10 +22,16 @@
 <ion-card>
 	<ion-card-title>{{account.name}} Recommended Sales Play</ion-card-title>
 </ion-card>
-<ion-card *ngFor = "let play of plays">
-<ion-card-title>{{play.explanation}}</ion-card-title>
-		<ion-item><a href = {{play.link}}>Click Here</a></ion-item>
-</ion-card>
+<ng-container *ngFor="let product of questions">
+  <ng-container *ngIf="product.doc.questions != []">
+    <ion-card>
+      <ion-card-title>We recommend this sales play: {{product.doc.name}}</ion-card-title>
+      		<ion-item>Because of the way you answered the following questions:</ion-item>
+          <p *ngFor = "let goodPath of filter(product)">&nbsp;{{goodPath.question}}</p>
+          <ion-item>Link to sales play</ion-item>
+    </ion-card>
+  </ng-container>
+</ng-container>
 
 
 </ion-content>

@@ -11,6 +11,8 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 export class ReportPage implements OnInit {
 
 account: any;
+questions: any;
+positiveList: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private auth: AuthenticationService) { 
   let that = this;
@@ -32,7 +34,29 @@ account: any;
           });
       }
     });
+
+    var yes = "Because you answered yes to the following questions:";
+    var no = "Because you said no to the following questions:";
+    this.auth.prospectingDB.allDocs({include_docs: true}).then(res => {
+      this.questions = res.rows;
+    });
+
+
 }
+
+filter(element) {
+    var allPaths = [];
+    allPaths = element.doc.questions.filter(value => {
+    let obj = {
+      product: element.doc.name,
+      question: value.question,
+      answer: value.good
+    }
+    return this.account.questions.some(item => JSON.stringify(item) == JSON.stringify(obj));
+
+  })
+    return allPaths;
+  }
 
   ngOnInit() {
   }
