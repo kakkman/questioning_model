@@ -1,0 +1,11 @@
+ion-content {
+--ion-background: url("https://mymagic.my/wp-content/uploads/2017/09/watson-background-1020x460.jpg") no-repeat center center / cover;
+}
+
+ion-content.background{
+    --background: url("https://mymagic.my/wp-content/uploads/2017/09/watson-background-1020x460.jpg") 0 0/100% 100% no-repeat;
+}
+
+ion-card {
+    background: white;
+  }
