@@ -3,7 +3,7 @@
       	 <ion-buttons slot="start" color="">
           <ion-button (click)="navigateToPage('/home')">Go Back</ion-button>
         </ion-buttons>
-        <ion-title>Account Info: {{account.name}}</ion-title>
+        <ion-title>Account Info: {{this.auth.currentAccount.name}}</ion-title>
          <ion-buttons slot="primary" color="">
           <ion-button>Edit Account Info</ion-button>
         </ion-buttons>  
@@ -16,7 +16,7 @@
     <ion-card-title>IBM Entitled and Deployed Products</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
+    <ion-label text-wrap>Last updated: {{this.auth.currentAccount.date}}</ion-label>
     <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
@@ -26,7 +26,7 @@
     <ion-card-title>Client Cloud Information</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
+    <ion-label text-wrap>Last updated: {{this.auth.currentAccount.date}}</ion-label>
     <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
@@ -36,7 +36,7 @@
     <ion-card-title>Prospect Questions</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
+    <ion-label text-wrap>Last updated: {{this.auth.currentAccount.date}}</ion-label>
     <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>

@@ -19,6 +19,7 @@ export class AuthenticationService {
 	public accounts;
 
 
+  public currentAccount:any;
 	//database for entitledDemployed
 
 	public entitledDeployedDB;
@@ -63,4 +64,17 @@ export class AuthenticationService {
    		this.prospectingDB.sync(this.remote, options);
 	}
 
+  updateCurrentAccount(){
+    let that = this
+    this.database.get(this.userInfo.email).then(function(doc) {
+      if(doc["accounts"] != null){
+        for(var i = 0; i < doc["accounts"].length; i++){
+          if (doc["accounts"][i].name === that.currentAccount.name){
+            doc["accounts"][i] = that.currentAccount;
+          }
+        }
+        that.database.put(doc);
+      }
+    });
+  }
 }

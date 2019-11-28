@@ -3,7 +3,7 @@
       	 <ion-buttons slot="start" color="">
           <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
         </ion-buttons>
-        <ion-title>Questions: {{account.name}}</ion-title>    
+        <ion-title>Questions: {{this.auth.currentAccount.name}}</ion-title>    
       </ion-toolbar>
     </ion-header>
 <ion-content>
@@ -17,6 +17,6 @@
 </ion-item>
  </div>
 
-<ion-button expand="block" (click)="navigateToPage('/acct-info')"> Generate New Report </ion-button>
+<ion-button expand="block" (click)="navigateToPage('/report')"> Generate New Report </ion-button>
 
 </ion-content>

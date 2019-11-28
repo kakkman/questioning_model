@@ -12,39 +12,27 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class EntitledDeployedPage {
 
-  public account: any;
-
   public products: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private auth: AuthenticationService) { 
-  	this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.account = this.router.getCurrentNavigation().extras.state.acct;
-      }
-    });
+  constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService) { 
     this.auth.entitledDeployedDB.allDocs({include_docs: true}).then(res => {
       this.products = res.rows;
-      console.log(this.products);
     });
   }
 
   navigateToPage(page) {
-  	let navigationExtras: NavigationExtras = {
-      state: {
-        acct: this.account
-      }
-    };
-    this.router.navigate([page], navigationExtras);
+    this.auth.updateCurrentAccount();
+    this.router.navigate([page]);
   }
 
   checkedItem(e, item) {
   	if(e.currentTarget.checked) {
-  		this.account.entitledDeployed.push(item);
+  		this.auth.currentAccount.entitledDeployed.push(item);
   	}
   	else {
-  		var index = this.account.entitledDeployed.indexOf(item);
+  		var index = this.auth.currentAccount.entitledDeployed.indexOf(item);
   		if(index!= -1) {
-  			this.account.entitledDeployed.splice(index, 1);
+  			this.auth.currentAccount.entitledDeployed.splice(index, 1);
   		}
   	}
   }
@@ -53,7 +41,7 @@ export class EntitledDeployedPage {
   {
     if(item != null)
     {
-  	let hasItem = this.account.entitledDeployed.indexOf(item) != -1;
+  	let hasItem = this.auth.currentAccount.entitledDeployed.indexOf(item) != -1;
     return hasItem;
     }
     return false;

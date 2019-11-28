@@ -24,6 +24,8 @@ export class HomePage {
         if(this.router.getCurrentNavigation().extras.state.accountInfo != null)
         {
           this.accounts = this.router.getCurrentNavigation().extras.state.accountInfo["accounts"];
+          console.log("Accountsssss");
+          console.log(this.accounts)
         }
       }
     });
@@ -95,12 +97,8 @@ export class HomePage {
   }
 
   openAccountPage(account){
-    let navigationExtras: NavigationExtras = {
-      state: {
-        acct: account
-      }
-    };
-    this.router.navigate(['acct-info'], navigationExtras);
+    this.auth.currentAccount = account;
+    this.router.navigate(['acct-info']);
   }
 }
 

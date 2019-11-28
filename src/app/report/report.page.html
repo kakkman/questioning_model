@@ -3,21 +3,21 @@
       	 <ion-buttons slot="start" color="">
           <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
         </ion-buttons>
-        <ion-title>Report: {{account.name}}</ion-title>  
+        <ion-title>Report: {{this.auth.currentAccount.name}}</ion-title>  
       </ion-toolbar>
     </ion-header>
 <ion-content>
 	<ion-card>
 	  <ion-item>
 	    <ion-card-header>
-        <ion-card-title>{{account.name}} Breakdown and Summary</ion-card-title>
+        <ion-card-title>{{this.auth.currentAccount.name}} Breakdown and Summary</ion-card-title>
       </ion-card-header>
     </ion-item>
     <ion-item>IBM Services</ion-item>
-    <p *ngFor="let item of account.entitledDeployed">&nbsp;{{item}}</p>
+    <p *ngFor="let item of this.auth.currentAccount.entitledDeployed">&nbsp;{{item}}</p>
   </ion-card>
   <ion-card>
-  	<ion-card-title>{{account.name}} Recommended Sales Play</ion-card-title>
+  	<ion-card-title>{{this.auth.currentAccount.name}} Recommended Sales Play</ion-card-title>
   </ion-card>
   <ng-container *ngFor="let product of questions">
     <ng-container *ngIf="product.doc.questions != []">

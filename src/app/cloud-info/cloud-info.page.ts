@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { Storage } from '@ionic/storage';
+import { AuthenticationService } from '../authentication.service';
 
 
 @Component({
@@ -10,15 +10,9 @@ import { Storage } from '@ionic/storage';
 })
 export class CloudInfoPage implements OnInit {
 
-  account: any;
-  cloudsInUse: any[] = [];
-
-  constructor(private route: ActivatedRoute, private router: Router) { 
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.account = this.router.getCurrentNavigation().extras.state.acct;
-      }
-    });
+  constructor(private route: ActivatedRoute, 
+    private router: Router, 
+    private auth: AuthenticationService) { 
   }
 
   ngOnInit() {
@@ -31,44 +25,36 @@ export class CloudInfoPage implements OnInit {
         name: cloudName,
         services: []
       }
-  		this.account.clouds.push(cloudProvider);
+  		this.auth.currentAccount.clouds.push(cloudProvider);
   	}
   	else{
       //removes cloud
-      let obj = this.account.clouds.find(x => x.name === cloudName)
-      let index = this.account.clouds.indexOf(obj);
-      console.log(index);
+      let obj = this.auth.currentAccount.clouds.find(x => x.name === cloudName)
+      let index = this.auth.currentAccount.clouds.indexOf(obj);
 
   		if(index!= -1) {
-  			this.account.clouds.splice(index, 1);
+  			this.auth.currentAccount.clouds.splice(index, 1);
   		}
   	}
-    console.log(this.account)
   }
 
   hasCloud(cloud){
-    let obj = this.account.clouds.find(x => x.name === cloud)
-    let index = this.account.clouds.indexOf(obj);
+    let obj = this.auth.currentAccount.clouds.find(x => x.name === cloud)
+    let index = this.auth.currentAccount.clouds.indexOf(obj);
     return(index != -1);
   }
 
   updateService(index, service) {
-    this.account.clouds[index].services.push(service);
-    console.log(this.account)
+    this.auth.currentAccount.clouds[index].services.push(service);
   }
 
   hasService(i, service) {
-    let cloud = this.account.clouds[i].services
+    let cloud = this.auth.currentAccount.clouds[i].services
     return(cloud.indexOf(service) != -1)
   }
 
   navigateToPage(page) {
-    let navigationExtras: NavigationExtras = {
-      state: {
-         acct: this.account
-      }
-    };
-    this.router.navigate([page], navigationExtras);
+    this.auth.updateCurrentAccount();
+    this.router.navigate([page]);
   }
-
 }

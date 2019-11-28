@@ -3,7 +3,7 @@
   	 <ion-buttons slot="start" color="">
       <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
     </ion-buttons>
-    <ion-title>Cloud Info: {{account.name}}</ion-title>  
+    <ion-title>Cloud Info: {{this.auth.currentAccount.name}}</ion-title>  
   </ion-toolbar>
 </ion-header>
 
@@ -34,7 +34,7 @@
     </ion-item>
   </ion-card>
 
-  <ion-card *ngFor="let cloud of account.clouds; let i = index">
+  <ion-card *ngFor="let cloud of this.auth.currentAccount.clouds; let i = index">
   	<ion-item>
       <ion-card-title>{{cloud.name}}</ion-card-title>
     </ion-item>
@@ -65,7 +65,7 @@
   	<ion-item>
       <ion-card-title>Is your client using Docker?</ion-card-title>
     </ion-item>
-    <ion-radio-group [(ngModel)]="this.account.docker">
+    <ion-radio-group [(ngModel)]="this.auth.currentAccount.docker">
       <ion-item>
       	<ion-radio disabled="false" value=true></ion-radio><p> &nbsp;Yes</p>
       </ion-item>
@@ -79,7 +79,7 @@
 	  <ion-item>
       <ion-card-title>Is your client using VMWare?</ion-card-title>
     </ion-item>
-    <ion-radio-group [(ngModel)]="this.account.vmware">
+    <ion-radio-group [(ngModel)]="this.auth.currentAccount.vmware">
       <ion-item>
         <ion-radio disabled="false" value=true></ion-radio><p> &nbsp;Yes</p>
       </ion-item>

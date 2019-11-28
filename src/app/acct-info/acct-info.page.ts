@@ -11,38 +11,15 @@ export class AcctInfoPage implements OnInit {
 
   account: any;
 
-  constructor(private auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
-    let that = this;
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.account = this.router.getCurrentNavigation().extras.state.acct;
-          that.auth.database.get(that.auth.userInfo.email).then(function(doc) {
-            if(doc["accounts"] != null)
-            {
-              for(var i = 0; i < doc["accounts"].length; i++)
-              {
-                if (doc["accounts"][i].name === that.account.name)
-                {
-                  doc["accounts"][i] = that.account;
-                }
-              }
-              that.auth.database.put(doc);
-            }
-          });
-      }
-    });
+  constructor(public auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
+     //this.auth.updateCurrentAccount()
   }
 
   navigateToPage(page) {
-  	let navigationExtras: NavigationExtras = {
-            state: {
-                acct: this.account
-            }
-        };
-        this.router.navigate([page], navigationExtras);
+    this.router.navigate([page]);
   }
 
 }
