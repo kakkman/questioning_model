@@ -1,14 +1,14 @@
 <ion-header translucent>
-      <ion-toolbar color="secondary">
-      	 <ion-buttons slot="start" color="">
-          <ion-button (click)="navigateToPage('/home')">Go Back</ion-button>
-        </ion-buttons>
-        <ion-title>Account Info: {{this.auth.currentAccount.name}}</ion-title>
-         <ion-buttons slot="primary" color="">
-          <ion-button>Edit Account Info</ion-button>
-        </ion-buttons>  
-      </ion-toolbar>
-    </ion-header>
+  <ion-toolbar color="secondary">
+  	 <ion-buttons slot="start" color="">
+      <ion-button (click)="navigateToPage('/home')">Go Back</ion-button>
+    </ion-buttons>
+    <ion-title>Account Info: {{this.auth.currentAccount.name}}</ion-title>
+     <ion-buttons slot="primary" color="">
+      <ion-button>Edit Account Info</ion-button>
+    </ion-buttons>  
+  </ion-toolbar>
+</ion-header>
 <ion-content>
 	<ion-card (click)="navigateToPage('/entitled-deployed')">
 	  <ion-item>
@@ -16,7 +16,6 @@
     <ion-card-title>IBM Entitled and Deployed Products</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: {{this.auth.currentAccount.date}}</ion-label>
     <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
@@ -26,7 +25,6 @@
     <ion-card-title>Client Cloud Information</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: {{this.auth.currentAccount.date}}</ion-label>
     <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
@@ -36,7 +34,6 @@
     <ion-card-title>Prospect Questions</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: {{this.auth.currentAccount.date}}</ion-label>
     <ion-button fill="outline" slot="end">Complete</ion-button>
   </ion-item>
 </ion-card>
@@ -46,7 +43,6 @@
     <ion-card-title>Generated Report</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last Generated: 10-10-19</ion-label>
   </ion-item>
 </ion-card>
 </ion-content>
