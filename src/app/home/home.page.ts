@@ -105,6 +105,11 @@ export class HomePage {
     this.auth.saveCurrentAccount();
     this.router.navigate(['acct-info']);
   }
+
+  logOut(){
+    this.auth.logOut();
+    this.router.navigate(['login']);
+  }
 }
 
 
