@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import AppID from 'ibmcloud-appid-js';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
+import { Storage } from '@ionic/storage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,7 @@ export class AuthenticationService {
 	public prospectingDB;
 
 
-  	constructor() { 
+  	constructor(public storage: Storage) { 
 
   		//all for user information collection 
   		this.appID.init({
@@ -66,6 +68,8 @@ export class AuthenticationService {
      } catch(error){
         console.log(error);
      }
+     //attempts to load from last session. 
+     this.getAcctInfo();
 	}
 
   updateCurrentAccount(){
@@ -83,6 +87,26 @@ export class AuthenticationService {
         });
       }
     });
+  }
+
+  getAcctInfo(){
+    console.log("Getting Account info")
+    this.storage.get('tokens').then((val)=> {
+      if (val != null) {
+        this.tokens = val;
+      }
+    });
+    this.storage.get('userInfo').then((val)=> {
+      if (val != null) {
+        this.userInfo = val;
+      }
+    });
+  }
+
+  saveAccount(){
+    console.log("Saving account info")
+    this.storage.set("tokens", this.tokens);
+    this.storage.set("userInfo", this.userInfo);
   }
 
   saveCurrentAccountToStorage() {

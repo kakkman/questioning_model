@@ -30,6 +30,9 @@ export class LoginPage {
       this.auth.tokens = tokens;
       this.auth.appID.getUserInfo(this.auth.tokens.accessToken).then(res => {
         that.auth.userInfo = res;
+        //save userInfo and tokens. 
+        that.auth.saveAccount();
+
         that.auth.database.get(that.auth.userInfo.email).then(function(doc) {
           console.log("Account with email " + res.email + " exists. Logging in.");
           that.auth.accounts = doc["accounts"];
