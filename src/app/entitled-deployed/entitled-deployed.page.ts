@@ -26,6 +26,9 @@ export class EntitledDeployedPage {
       //navigating back to login
       this.router.navigate(['login']);
     }
+    if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
+      this.router.navigate(['home']);
+    }
   }
 
   navigateToPage(page) {

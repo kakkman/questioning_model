@@ -34,7 +34,7 @@ export class AcctInfoPage implements OnInit {
       that.auth.currentAccount = val;
     });
 
-    if(this.auth.currentAccount === undefined){
+    if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
       this.router.navigate(['home']);
     }
   }

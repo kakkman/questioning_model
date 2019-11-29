@@ -29,6 +29,9 @@ export class CloudInfoPage implements OnInit {
       //navigating back to login
       this.router.navigate(['login']);
     }
+    if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
+      this.router.navigate(['home']);
+    }
   }
 
   //adds cloud to list of clouds that the client is using

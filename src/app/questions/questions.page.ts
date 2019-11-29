@@ -27,6 +27,9 @@ export class QuestionsPage implements OnInit {
       //navigating back to login
       this.router.navigate(['login']);
     }
+    if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
+      this.router.navigate(['home']);
+    }
   }
 
   updateItem(product1, question1, answer1){
