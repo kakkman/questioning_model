@@ -129,5 +129,7 @@ export class AuthenticationService {
     this.userInfo = undefined;
     this.accounts = undefined;
     this.currentAccount = undefined;
+    this.storage.set("tokens", null);
+    this.storage.set("userInfo", null);
   }
 }
