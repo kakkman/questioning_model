@@ -19,17 +19,16 @@ export class HomePage {
   }
 
   ionViewWillEnter(){
-    console.log("THIS IS TOKEN VALUE");
-    console.log(this.auth.tokenIsValid())
     if(!this.auth.tokenIsValid())
     {
       //navigating back to login
-      console.log("TOKEN NOT VALID FOR SOME REASON")
       this.router.navigate(['login']);
     }
     else {
       //load relevant information
+      let that = this;
       this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
+        that.auth.accounts = doc["accounts"];
        }).catch(function (err) {
         console.log(err); 
       });
