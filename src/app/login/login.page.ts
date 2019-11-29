@@ -28,19 +28,12 @@ export class LoginPage {
    	try {
   		const tokens = await this.auth.appID.signin();
       this.auth.tokens = tokens;
-      console.log(tokens);
       this.auth.appID.getUserInfo(this.auth.tokens.accessToken).then(res => {
         that.auth.userInfo = res;
-        //console.log(res);
-        console.log(res.email);
         that.auth.database.get(that.auth.userInfo.email).then(function(doc) {
-          console.log("Account Exists. Logging in.");
-          let navigationExtras: NavigationExtras = {
-            state: {
-              accountInfo: doc
-            }
-          };
-          that.router.navigate(['home'], navigationExtras);
+          console.log("Account with email " + res.email + " exists. Logging in.");
+          that.auth.accounts = doc["accounts"];
+          that.router.navigate(['home']);
 
         }).catch(function (err) {
           console.log(err);
@@ -49,7 +42,6 @@ export class LoginPage {
           {
             console.log("Creating Account...");
             that.auth.database.put({'_id':that.auth.userInfo.email,'name': that.auth.userInfo.name, 'email': that.auth.userInfo.email}).then((resp) => {
-              console.log(resp)
               that.router.navigate(['home']);
             }).catch((e) => {
               console.log(e);
@@ -63,9 +55,7 @@ export class LoginPage {
   }
 
   public autoLogin(){
-    if(this.auth.tokens != null && 
-      this.auth.userInfo.email != null && 
-      this.auth.tokenIsValid()){
+    if(this.auth.tokenIsValid()){
 
       this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
         console.log("Account Information Saved. Logging in.");

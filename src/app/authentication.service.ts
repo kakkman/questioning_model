@@ -78,7 +78,9 @@ export class AuthenticationService {
             doc["accounts"][i] = that.currentAccount;
           }
         }
-        that.database.put(doc);
+        that.database.put(doc).then(res => {
+          that.accounts = doc["accounts"];
+        });
       }
     });
   }
@@ -91,6 +93,7 @@ export class AuthenticationService {
   tokenIsValid(){
     let now = new Date().getTime(); 
     if(this.tokens === undefined) {
+      this.logOut();
       return false;
     }
     return(now > this.tokens.accessTokenPayload.exp);
@@ -98,9 +101,9 @@ export class AuthenticationService {
 
   logOut(){
     //revoke token and remove current information. 
-    this.tokens = null;
-    this.userInfo = null;
-    this.accounts = null;
-    this.currentAccount = null;
+    this.tokens = undefined;
+    this.userInfo = undefined;
+    this.accounts = undefined;
+    this.currentAccount = undefined;
   }
 }

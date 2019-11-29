@@ -10,35 +10,29 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class HomePage {
 
-  accounts: any[] = [];
-
   constructor(private route: ActivatedRoute, 
     private alertCtrl: AlertController, 
     private router: Router, 
     public auth: AuthenticationService) {
-
-    //load list of accounts
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        console.log(this.router.getCurrentNavigation().extras);
-        if(this.router.getCurrentNavigation().extras.state.accountInfo != null)
-        {
-          this.accounts = this.router.getCurrentNavigation().extras.state.accountInfo["accounts"];
-
-          //save accounts local
-
-          //
-        }
-      }
-    });
     //load accounts from local if possible. 
+
   }
 
   ionViewWillEnter(){
+    console.log("THIS IS TOKEN VALUE");
+    console.log(this.auth.tokenIsValid())
     if(!this.auth.tokenIsValid())
     {
       //navigating back to login
+      console.log("TOKEN NOT VALID FOR SOME REASON")
       this.router.navigate(['login']);
+    }
+    else {
+      //load relevant information
+      this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
+       }).catch(function (err) {
+        console.log(err); 
+      });
     }
   }
 
@@ -90,7 +84,6 @@ export class HomePage {
               report: []
             };
             this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
-              var string= doc
               if(doc["accounts"] == null)
               {
                  doc["accounts"] = [];
@@ -98,7 +91,7 @@ export class HomePage {
               doc["accounts"].unshift(newAcct);
               //TODO: CHECK TO SEE DUPLICATE ACCOUNTS, ETC
               that.auth.database.put(doc).then(res => {
-                that.accounts.unshift(newAcct);
+                that.auth.accounts = doc["accounts"];
               });
             });                    
         }

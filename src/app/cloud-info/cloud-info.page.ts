@@ -13,6 +13,11 @@ export class CloudInfoPage implements OnInit {
   constructor(private route: ActivatedRoute, 
     private router: Router, 
     private auth: AuthenticationService) { 
+    if(!this.auth.tokenIsValid())
+    {
+      //navigating back to login
+      this.router.navigate(['login']);
+    }
   }
 
   ngOnInit() {
