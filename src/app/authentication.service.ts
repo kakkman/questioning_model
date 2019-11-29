@@ -138,5 +138,6 @@ export class AuthenticationService {
     this.currentAccount = undefined;
     this.storage.set("tokens", null);
     this.storage.set("userInfo", null);
+    this.storage.set("currentAccount", null);
   }
 }
