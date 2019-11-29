@@ -24,11 +24,22 @@ export class HomePage {
         if(this.router.getCurrentNavigation().extras.state.accountInfo != null)
         {
           this.accounts = this.router.getCurrentNavigation().extras.state.accountInfo["accounts"];
-          console.log("Accountsssss");
-          console.log(this.accounts)
+
+          //save accounts local
+
+          //
         }
       }
     });
+    //load accounts from local if possible. 
+  }
+
+  ionViewWillEnter(){
+    if(!this.auth.tokenIsValid())
+    {
+      //navigating back to login
+      this.router.navigate(['login']);
+    }
   }
 
   async presentAlert() {

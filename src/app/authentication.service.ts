@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import AppID from 'ibmcloud-appid-js';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +37,7 @@ export class AuthenticationService {
   			discoveryEndpoint: "https://us-south.appid.cloud.ibm.com/oauth/v4/547b2dd4-7a0f-4af5-b696-416798121de4/.well-known/openid-configuration"
   		});
 
-  		this.database = new PouchDB('https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/test2');
+  		this.database = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/test2");
   		this.remote = "https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/"
 
   		this.username = "bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix"
@@ -51,20 +52,24 @@ export class AuthenticationService {
 		    	password: this.password
 			}
    		};
-   		this.database.sync(this.remote, options);
 
-   		//database for entitled deployed
-   		this.entitledDeployedDB = new PouchDB('https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/entitled_deployed');
-   		this.entitledDeployedDB.sync(this.remote, options);
+      try {
+     		this.database.sync(this.remote, options);
 
-   		//database for cloud offerings
+     		//database for entitled deployed
+     		this.entitledDeployedDB = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/entitled_deployed");
+     		this.entitledDeployedDB.sync(this.remote, options);
 
-   		//database for prospecting questions
-   		this.prospectingDB = new PouchDB('https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/prospecting_questions');
-   		this.prospectingDB.sync(this.remote, options);
+     		//database for prospecting questions
+     		this.prospectingDB = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/prospecting_questions");
+     		this.prospectingDB.sync(this.remote, options);
+     } catch(error){
+        console.log(error);
+     }
 	}
 
   updateCurrentAccount(){
+    this.saveCurrentAccountToStorage();
     let that = this
     this.database.get(this.userInfo.email).then(function(doc) {
       if(doc["accounts"] != null){
@@ -76,5 +81,26 @@ export class AuthenticationService {
         that.database.put(doc);
       }
     });
+  }
+
+  saveCurrentAccountToStorage() {
+
+  }
+
+//checks the time remaining on the certificate
+  tokenIsValid(){
+    let now = new Date().getTime(); 
+    if(this.tokens === undefined) {
+      return false;
+    }
+    return(now > this.tokens.accessTokenPayload.exp);
+  }
+
+  logOut(){
+    //revoke token and remove current information. 
+    this.tokens = null;
+    this.userInfo = null;
+    this.accounts = null;
+    this.currentAccount = null;
   }
 }

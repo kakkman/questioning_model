@@ -21,6 +21,14 @@ export class QuestionsPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter(){
+    if(!this.auth.tokenIsValid())
+    {
+      //navigating back to login
+      this.router.navigate(['login']);
+    }
+  }
+
   updateItem(product1, question1, answer1){
     let obj = this.auth.currentAccount.questions.find(x => x.question === question1);
     let index = this.auth.currentAccount.questions.indexOf(obj);

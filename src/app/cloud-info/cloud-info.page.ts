@@ -18,6 +18,14 @@ export class CloudInfoPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter(){
+    if(!this.auth.tokenIsValid())
+    {
+      //navigating back to login
+      this.router.navigate(['login']);
+    }
+  }
+
   //adds cloud to list of clouds that the client is using
   addValue(e, cloudName) {
   	if(e.currentTarget.checked) {

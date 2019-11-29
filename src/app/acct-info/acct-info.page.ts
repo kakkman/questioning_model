@@ -18,6 +18,14 @@ export class AcctInfoPage implements OnInit {
      //this.auth.updateCurrentAccount()
   }
 
+  ionViewWillEnter(){
+    if(!this.auth.tokenIsValid())
+    {
+      //navigating back to login
+      this.router.navigate(['login']);
+    }
+  }
+
   navigateToPage(page) {
     this.router.navigate([page]);
   }

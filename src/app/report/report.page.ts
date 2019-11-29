@@ -36,6 +36,13 @@ export class ReportPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter(){
+    if(!this.auth.tokenIsValid()){
+      //navigating back to login
+      this.router.navigate(['login']);
+    }
+  }
+
   navigateToPage(page) {
     this.auth.updateCurrentAccount();
     this.router.navigate([page]);
