@@ -3,7 +3,7 @@
   	 <ion-buttons slot="start" color="">
       <ion-button (click)="navigateToPage('/home')">Go Back</ion-button>
     </ion-buttons>
-    <ion-title>Account Info: {{this.auth.currentAccount.name}}</ion-title>
+    <ion-title>Account Info: {{getAccountName()}}</ion-title>
      <ion-buttons slot="primary" color="">
       <ion-button>Edit Account Info</ion-button>
     </ion-buttons>  

@@ -22,7 +22,7 @@ export class AuthenticationService {
 	public accounts;
 
 
-  public currentAccount:any;
+  public currentAccount;
 	//database for entitledDemployed
 
 	public entitledDeployedDB;
@@ -73,7 +73,7 @@ export class AuthenticationService {
 	}
 
   updateCurrentAccount(){
-    this.saveCurrentAccountToStorage();
+    this.saveCurrentAccount();
     let that = this
     this.database.get(this.userInfo.email).then(function(doc) {
       if(doc["accounts"] != null){
@@ -90,7 +90,6 @@ export class AuthenticationService {
   }
 
   getAcctInfo(){
-    console.log("Getting Account info")
     this.storage.get('tokens').then((val)=> {
       if (val != null) {
         this.tokens = val;
@@ -101,16 +100,24 @@ export class AuthenticationService {
         this.userInfo = val;
       }
     });
+    this.storage.get('currentAccount').then((val)=> {
+      if (val != null) {
+        this.currentAccount = val;
+      }
+    });
   }
 
-  saveAccount(){
+  saveUserAccount(){
     console.log("Saving account info")
     this.storage.set("tokens", this.tokens);
     this.storage.set("userInfo", this.userInfo);
   }
 
-  saveCurrentAccountToStorage() {
-
+//this method is for the company account that is currently being accessed. 
+  saveCurrentAccount() {
+    this.storage.set("currentAccount", this.currentAccount);
+    console.log("In method saveCurrentAccount")
+    console.log(this.currentAccount);
   }
 
 //checks the time remaining on the certificate

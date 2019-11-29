@@ -101,6 +101,8 @@ export class HomePage {
 
   openAccountPage(account){
     this.auth.currentAccount = account;
+    console.log("setting current account");
+    this.auth.saveCurrentAccount();
     this.router.navigate(['acct-info']);
   }
 }

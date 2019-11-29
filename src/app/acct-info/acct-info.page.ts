@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-acct-info',
@@ -9,9 +10,12 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class AcctInfoPage implements OnInit {
 
-  account: any;
+  constructor(public storage: Storage, public auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
+       let that = this;
 
-  constructor(public auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
+ this.storage.get('currentAccount').then((val)=> {
+      that.auth.currentAccount = val;
+    });
   }
 
   ngOnInit() {
@@ -24,6 +28,23 @@ export class AcctInfoPage implements OnInit {
       //navigating back to login
       this.router.navigate(['login']);
     }
+    let that = this;
+
+    this.storage.get('currentAccount').then((val)=> {
+      that.auth.currentAccount = val;
+    });
+
+    if(this.auth.currentAccount === undefined){
+      this.router.navigate(['home']);
+    }
+  }
+
+  getAccountName()
+  {
+    if(this.auth.currentAccount === undefined){
+      return "";
+    }
+    return this.auth.currentAccount.name
   }
 
   navigateToPage(page) {
