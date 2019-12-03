@@ -1,22 +1,24 @@
 <ion-header translucent>
-      <ion-toolbar color="secondary">
-      	 <ion-buttons slot="start" color="">
-          <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
-        </ion-buttons>
-        <ion-title>IBM Entitled and Deployed Products</ion-title>  
-      </ion-toolbar>
-    </ion-header>
-
+  <ion-toolbar color="secondary">
+  	<ion-buttons slot="start" color="">
+      <ion-button (click)="navigateToPage('/acct-info')">Go Back</ion-button>
+    </ion-buttons>
+    <ion-title>IBM Entitled and Deployed Products</ion-title>  
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-
-<ion-card *ngFor="let category of products">
-    <ion-item>
-  <ion-card-header>
-    <ion-card-title>{{category.doc.name}}</ion-card-title>
-  </ion-card-header>
-  </ion-item>
-  <ion-item *ngFor="let product of category.doc.products">
-    <ion-checkbox disabled="false" (ionChange)="checkedItem($event, product)" [checked]="hasItem(product)"></ion-checkbox><p> &nbsp;{{product}}</p>
-  </ion-item>
-</ion-card>
+  <ion-card *ngFor="let category of products">
+      <ion-item>
+    <ion-card-header>
+      <ion-card-title>{{category.doc.name}}</ion-card-title>
+    </ion-card-header>
+    </ion-item>
+    <ion-item *ngFor="let product of category.doc.products">
+      <ion-checkbox disabled="false" (ionChange)="checkedItem($event, product)" [checked]="hasItem(product)"></ion-checkbox><p> &nbsp;{{product}}</p>
+    </ion-item>
+  </ion-card>
+  <ion-button expand="block" (click)="navigateToPage('/acct-info')">Continue</ion-button>
+  <ion-item> </ion-item>
+  <ion-item> </ion-item>
+  <ion-item> </ion-item>
 </ion-content>

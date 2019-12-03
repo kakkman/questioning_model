@@ -6,7 +6,6 @@
     <ion-title>Cloud Info: {{this.auth.currentAccount.name}}</ion-title>  
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
 	<ion-card>
   	<ion-item>
@@ -33,7 +32,6 @@
     	<ion-checkbox disabled="false"></ion-checkbox><p> &nbsp;None</p>
     </ion-item>
   </ion-card>
-
   <ion-card *ngFor="let cloud of this.auth.currentAccount.clouds; let i = index">
   	<ion-item>
       <ion-card-title>{{cloud.name}}</ion-card-title>
@@ -60,7 +58,6 @@
     	<ion-checkbox disabled="false" (ionChange) = "updateService(i, 'Kubernetes')" [checked]="hasService(i, 'Kubernetes')"></ion-checkbox><p> &nbsp;Kubernetes</p>
     </ion-item>
   </ion-card>
-
   <ion-card>
   	<ion-item>
       <ion-card-title>Is your client using Docker?</ion-card-title>
@@ -74,7 +71,6 @@
       </ion-item>
     </ion-radio-group>
   </ion-card>
-  
   <ion-card>
 	  <ion-item>
       <ion-card-title>Is your client using VMWare?</ion-card-title>
@@ -88,5 +84,6 @@
       </ion-item>
     </ion-radio-group>
   </ion-card>
-
+  <ion-button expand="block" (click)="navigateToPage('/acct-info')">Continue</ion-button>
+  <ion-item> </ion-item>
 </ion-content>
