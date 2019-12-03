@@ -38,15 +38,15 @@ export class HomePage {
   async presentAlert() {
     let that = this;
     const alert = await this.alertCtrl.create({
-      message: 'Create a new client profile',
+      message: 'Create a New Business Profile',
       inputs: [
         {
             name: 'name',
-            placeholder: 'Client Name'
+            placeholder: 'Business Name'
         },
         {
             name: 'location',
-            placeholder: 'location',
+            placeholder: 'Location',
         },
         {
           	name: 'date',
@@ -55,7 +55,7 @@ export class HomePage {
         },
         {
           	name: "info",
-          	placeholder: "additional client info",
+          	placeholder: "Additional Client Info",
         }
       ],
       buttons: [
