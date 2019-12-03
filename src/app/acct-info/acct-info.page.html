@@ -13,7 +13,8 @@
     <ion-card-title>IBM Entitled and Deployed Products</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-button fill="outline" slot="end">Complete</ion-button>
+    <ion-button *ngIf="this.auth.currentAccount.entitledComplete != undefined" fill="outline" slot="end">Complete</ion-button>
+    <ion-button *ngIf="this.auth.currentAccount.entitledComplete === undefined" fill="outline" slot="end" color = "danger">Incomplete</ion-button>
   </ion-item>
 </ion-card>
 	<ion-card (click)="navigateToPage('/cloud-info')" style="cursor: pointer;">
@@ -22,7 +23,8 @@
     <ion-card-title>Client Cloud Information</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-button fill="outline" slot="end">Complete</ion-button>
+    <ion-button *ngIf="this.auth.currentAccount.cloudComplete != undefined" fill="outline" slot="end">Complete</ion-button>
+    <ion-button *ngIf="this.auth.currentAccount.cloudComplete === undefined" fill="outline" slot="end" color = "danger">Incomplete</ion-button>
   </ion-item>
 </ion-card>
 	<ion-card (click)="navigateToPage('/questions')" style="cursor: pointer;">
@@ -31,15 +33,26 @@
     <ion-card-title>Prospect Questions</ion-card-title>
   </ion-card-header>
     <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-button fill="outline" slot="end">Complete</ion-button>
+    <ion-button *ngIf="this.auth.currentAccount.prospectComplete != undefined" fill="outline" slot="end">Complete</ion-button>
+    <ion-button *ngIf="this.auth.currentAccount.prospectComplete === undefined" fill="outline" slot="end" color = "danger">Incomplete</ion-button>
   </ion-item>
 </ion-card>
-	<ion-card (click)="navigateToPage('/report')" style="cursor: pointer;">
+	<ion-card (click)="navigateToPage('/report')" style="cursor: pointer;" 
+    *ngIf="this.auth.currentAccount.prospectComplete != undefined && 
+    this.auth.currentAccount.cloudComplete != undefined &&
+    this.auth.currentAccount.entitledComplete != undefined">
 	  <ion-item>
-	<ion-card-header>
-    <ion-card-title>Generated Report</ion-card-title>
-  </ion-card-header>
-    <ion-icon name="contacts" slot="start"></ion-icon>
-  </ion-item>
-</ion-card>
+  	<ion-card-header>
+      <ion-card-title>Generated Report</ion-card-title>
+    </ion-card-header>
+      <ion-icon name="contacts" slot="start"></ion-icon>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf="this.auth.currentAccount.prospectComplete === undefined || 
+    this.auth.currentAccount.cloudComplete === undefined ||
+    this.auth.currentAccount.entitledComplete === undefined">
+    <ion-item>
+      A report will be generated once all sections are complete.
+    </ion-item>
+  </ion-card>
 </ion-content>

@@ -54,10 +54,17 @@ export class QuestionsPage implements OnInit {
     let index = this.auth.currentAccount.questions.indexOf(obj);
   	return (index != -1 && obj.answer === answer);
   }
+  
+  complete(page){
+    this.auth.currentAccount.prospectComplete = true;
+    this.navigateToPage(page);
+  }
 
   navigateToPage(page) {
     this.auth.updateCurrentAccount();
     this.router.navigate([page]);
   }
+
+
 
 }

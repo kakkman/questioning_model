@@ -69,6 +69,13 @@ export class CloudInfoPage implements OnInit {
     return(cloud.indexOf(service) != -1)
   }
 
+  
+  complete(page){
+    this.auth.currentAccount.cloudComplete = true;
+    this.navigateToPage(page);
+  }
+
+
   navigateToPage(page) {
     this.auth.updateCurrentAccount();
     this.router.navigate([page]);

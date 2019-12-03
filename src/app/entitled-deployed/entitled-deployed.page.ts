@@ -31,6 +31,11 @@ export class EntitledDeployedPage {
     }
   }
 
+  complete(page){
+    this.auth.currentAccount.entitledComplete = true;
+    this.navigateToPage(page);
+  }
+
   navigateToPage(page) {
     this.auth.updateCurrentAccount();
     this.router.navigate([page]);
