@@ -22,6 +22,10 @@ export class LoginPage {
     //if(this.auth.tokens.accessToken != null && this.auth.tokens.accessToken){}
   }
 
+  ionViewWillEnter(){
+        this.autoLogin();
+  }
+
 //logs user in and creates database entry if it didn't exist already
   public async logIn() {
     let that = this;
@@ -60,6 +64,7 @@ export class LoginPage {
   public autoLogin(){
     if(this.auth.tokenIsValid()){
 
+      let that = this;
       this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
         console.log("Account Information Saved. Logging in.");
         let navigationExtras: NavigationExtras = {
@@ -67,7 +72,7 @@ export class LoginPage {
             accountInfo: doc
           }
         };
-        this.router.navigate(['home'], navigationExtras);
+        that.router.navigate(['home'], navigationExtras);
       })
     }
   }
