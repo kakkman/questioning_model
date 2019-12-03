@@ -1,40 +1,34 @@
 <ion-header translucent>
-      <ion-toolbar color="secondary">
-
-        <ion-title>IBM SCL Questioning Model</ion-title>
-
-        <ion-buttons slot="primary" color="">
-          <ion-button fill="outline" color="light" (click)="presentAlert()">
-          	Add Account
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>IBM SCL Questioning Model</ion-title>
+    <ion-buttons slot="primary" color="">
+      <ion-button fill="outline" color="light" (click)="presentAlert()">
+      	Add Account
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <ion-button ion-button (click)="logOut()" class="btn" >
-      Logout
-    </ion-button>
+  <ion-button ion-button (click)="logOut()" class="btn" >Logout</ion-button>
   <div class="ion-padding" text-center>
     <p>The IBM SCL Sales Enablement Tool was created to assist in finding new opportunity within your clients. It provides a guide to fill out information about your client to eventually lead you to new conversations.</p>
     <p>Getting started:</p>
     <p>Start by defining your accounts via the button in the top right corner. You can put in information about the specific companies, as well as specific notes you would like to leave for yourself. After creating your accouont, click view to explore options regarding their current entitlements and deployments, their cloud environment, and potential prospecting questions. After all information has been filled out, a report will be generated for you with links to appropriate sales kits.
   </div>
-
-<ion-card *ngFor = "let account of this.auth.accounts">
-	  <ion-item>
-	<ion-card-header>
-    <ion-card-title>{{account.name}}</ion-card-title>
-        <ion-card-subtitle>{{account.location}}</ion-card-subtitle>
-
-  </ion-card-header>
-    <ion-icon name="contacts" slot="start"></ion-icon>
-    <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
-    <ion-button fill="outline" slot="end" (click)="openAccountPage(account)">View</ion-button>
-  </ion-item>
-
-  <ion-card-content>
-    {{account.info}}
-  </ion-card-content>
-</ion-card>
-
+  <ion-card *ngFor = "let account of this.auth.accounts">
+  	  <ion-item>
+  	<ion-card-header>
+      <ion-card-title>{{account.name}}</ion-card-title>
+      <ion-card-subtitle>{{account.location}}</ion-card-subtitle>
+    </ion-card-header>
+      <ion-icon name="contacts" slot="start"></ion-icon>
+      <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
+      <ion-button fill="outline" slot="end" (click)="openAccountPage(account)">View</ion-button>
+      <ion-icon name="alert" slot="end" (click)="openAccountPage(account)"  style="cursor: pointer;">
+      </ion-icon>
+    </ion-item>
+    <ion-card-content>
+      {{account.info}}
+    </ion-card-content>
+  </ion-card>
 </ion-content>
