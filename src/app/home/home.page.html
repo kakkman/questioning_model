@@ -26,7 +26,7 @@
       <ion-icon name="contacts" slot="start"></ion-icon>
       <ion-label text-wrap>Last updated: {{account.date}}</ion-label>
       <ion-button fill="outline" slot="end" (click)="openAccountPage(account)">View</ion-button>
-      <ion-icon name="close-circle" slot="end" (click)="deleteAccount(account)" style="cursor: pointer;"></ion-icon>
+      <ion-icon name="close-circle" slot="end" color="danger" (click)="deleteAccount(account)" style="cursor: pointer;"></ion-icon>
     </ion-item>
     <ion-card-content style="background: #fff">
       {{account.info}}
