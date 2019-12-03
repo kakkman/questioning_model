@@ -39,6 +39,8 @@ export class AcctInfoPage implements OnInit {
     }
   }
 
+  //getter methods to prevent error from async loading
+
   getAccountName()
   {
     if(this.auth.currentAccount === undefined){
@@ -46,6 +48,28 @@ export class AcctInfoPage implements OnInit {
     }
     return this.auth.currentAccount.name
   }
+
+  entitledDeployed(){
+    if(this.auth.currentAccount === undefined){
+      return false;
+    }
+    return this.auth.currentAccount.entitledComplete
+  }
+
+  cloudInfo(){
+    if(this.auth.currentAccount === undefined){
+      return false;
+    }
+    return this.auth.currentAccount.cloudComplete
+  }
+
+  prospecting(){
+    if(this.auth.currentAccount === undefined){
+      return false;
+    }
+    return this.auth.currentAccount.prospectComplete
+  }
+
 
   navigateToPage(page) {
     this.router.navigate([page]);
