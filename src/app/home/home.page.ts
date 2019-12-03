@@ -106,6 +106,23 @@ export class HomePage {
     this.router.navigate(['acct-info']);
   }
 
+  deleteAccount(account){
+    let that = this;
+    this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
+      let obj = doc["accounts"].find(x => x.name === account.name)
+      let index = doc["accounts"].indexOf(obj);
+      doc["accounts"].splice(index, 1);
+
+      that.auth.database.put(doc).then(res => {
+        that.auth.accounts = doc["accounts"];
+      });
+    });  
+  }
+
+  doNothing(account){
+
+  }
+
   logOut(){
     this.auth.logOut();
     this.router.navigate(['login']);
