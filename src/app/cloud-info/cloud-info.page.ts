@@ -12,7 +12,7 @@ export class CloudInfoPage implements OnInit {
 
   constructor(private route: ActivatedRoute, 
     private router: Router, 
-    private auth: AuthenticationService) { 
+    public auth: AuthenticationService) { 
     if(!this.auth.tokenIsValid())
     {
       //navigating back to login
