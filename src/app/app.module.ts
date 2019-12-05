@@ -20,6 +20,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthenticationService } from './authentication.service'; 
 
+import { AuthGuardService } from "./guards/auth-guard.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { AuthenticationService } from './authentication.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
     HTTP,
-    AuthenticationService
+    AuthenticationService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

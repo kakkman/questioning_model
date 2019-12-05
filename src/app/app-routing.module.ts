@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from "./guards/auth-guard.service";
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -9,7 +11,7 @@ const routes: Routes = [
   { path: 'cloud-info', loadChildren: './cloud-info/cloud-info.module#CloudInfoPageModule' },
   { path: 'report', loadChildren: './report/report.module#ReportPageModule' },
   { path: 'questions', loadChildren: './questions/questions.module#QuestionsPageModule' },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' }
+  { path: 'home', loadChildren: './home/home.module#HomePageModule', canActivate:[AuthGuardService]}
   ];
 
 @NgModule({

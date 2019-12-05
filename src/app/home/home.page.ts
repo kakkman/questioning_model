@@ -16,20 +16,15 @@ export class HomePage {
     public auth: AuthenticationService) {
   }
 
-  ionViewWillEnter(){
-    if(!this.auth.tokenIsValid()){
-      //navigating back to login
-      this.router.navigate(['login']);
-    }
-    else {
-      //load relevant information
-      let that = this;
-      this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
+  async ionViewWillEnter(){
+    let that = this;
+    this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
         that.auth.accounts = doc["accounts"];
+        return true;
        }).catch(function (err) {
-        console.log(err); 
+         console.log(err);
       });
-    }
+    return false;
   }
 
   async presentAlert() {
