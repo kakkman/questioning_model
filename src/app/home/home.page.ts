@@ -14,13 +14,10 @@ export class HomePage {
     private alertCtrl: AlertController, 
     private router: Router, 
     public auth: AuthenticationService) {
-    //load accounts from local if possible. 
-
   }
 
   ionViewWillEnter(){
-    if(!this.auth.tokenIsValid())
-    {
+    if(!this.auth.tokenIsValid()){
       //navigating back to login
       this.router.navigate(['login']);
     }
@@ -224,7 +221,3 @@ export class HomePage {
     this.router.navigate(['login']);
   }
 }
-
-
-
-
