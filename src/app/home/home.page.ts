@@ -115,7 +115,7 @@ export class HomePage {
       index = doc["accounts"].indexOf(obj);
     });
     const alert = await this.alertCtrl.create({
-      message: 'Create a New Business Profile',
+      message: 'Update Account',
       inputs: [
         {
             name: 'name',
