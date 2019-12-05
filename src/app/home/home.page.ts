@@ -106,21 +106,117 @@ export class HomePage {
     this.router.navigate(['acct-info']);
   }
 
-  deleteAccount(account){
-    let that = this;
-    this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
-      let obj = doc["accounts"].find(x => x.name === account.name)
-      let index = doc["accounts"].indexOf(obj);
-      doc["accounts"].splice(index, 1);
-
-      that.auth.database.put(doc).then(res => {
-        that.auth.accounts = doc["accounts"];
-      });
-    });  
+  async getAcct(account){
+    return this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
+      return doc;
+    });
   }
 
-  doNothing(account){
+  async updateAccount(account){
+    let that = this;
+    var index;
+    var obj;
+    var doc;
+    await this.getAcct(account).then(data => {
+      doc = data;
+      obj = doc["accounts"].find(x => x.name === account.name);
+      index = doc["accounts"].indexOf(obj);
+    });
+    const alert = await this.alertCtrl.create({
+      message: 'Create a New Business Profile',
+      inputs: [
+        {
+            name: 'name',
+            placeholder: 'Business Name',
+            value: obj.name
+        },
+        {
+            name: 'location',
+            placeholder: 'Location',
+            value: obj.location
+        },
+        {
+            name: 'date',
+            placeholder: 'date',
+            type: 'date',
+            value: obj.date
+        },
+        {
+            name: "info",
+            placeholder: "Additional Client Info",
+            value: obj.info
+        }
+      ],
+      buttons: [
+        {
+          text: 'Update',
+          handler: data => {
+            console.log('Update clicked');
+            obj = {
+              name: data.name,
+              location: data.location,
+              date: data.date,
+              info: data.info,
+              entitledDeployed: obj.entitledDeployed,
+              clouds: obj.clouds,
+              vmware: obj.vmware,
+              docker: obj.docker,
+              questions: obj.questions,
+              report: []
+            };
+            doc["accounts"][index] = obj;
+            that.auth.database.put(doc).then(res => {
+                that.auth.accounts = doc["accounts"];                   
+          });
+          }      
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]    
+    });
+    await alert.present();  
+  }
 
+  async delete(account){
+    let that = this;
+    var index;
+    var obj;
+    var doc;
+    await this.getAcct(account).then(data => {
+      doc = data;
+      obj = doc["accounts"].find(x => x.name === account.name);
+      index = doc["accounts"].indexOf(obj);
+    });
+
+    const alert = await this.alertCtrl.create({
+      message: 'Are you sure you want to delete this account?',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'delete',
+          cssClass:"color=Danger",
+          handler: data => {
+            doc["accounts"].splice(index, 1);
+            that.auth.database.put(doc).then(res => {
+              that.auth.accounts = doc["accounts"];
+            });
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    await alert.present();  
   }
 
   logOut(){
