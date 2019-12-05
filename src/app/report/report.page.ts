@@ -37,10 +37,7 @@ export class ReportPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    if(!this.auth.tokenIsValid()){
-      //navigating back to login
-      this.router.navigate(['login']);
-    }
+    
   }
 
   navigateToPage(page) {

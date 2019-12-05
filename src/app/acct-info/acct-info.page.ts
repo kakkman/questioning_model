@@ -22,14 +22,8 @@ export class AcctInfoPage implements OnInit {
      //this.auth.updateCurrentAccount()
   }
 
-  ionViewWillEnter(){
-    if(!this.auth.tokenIsValid())
-    {
-      //navigating back to login
-      this.router.navigate(['login']);
-    }
+  async ionViewWillEnter(){
     let that = this;
-
     this.storage.get('currentAccount').then((val)=> {
       that.auth.currentAccount = val;
     });

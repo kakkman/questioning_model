@@ -23,12 +23,7 @@ export class CloudInfoPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter(){
-    if(!this.auth.tokenIsValid())
-    {
-      //navigating back to login
-      this.router.navigate(['login']);
-    }
+  async ionViewWillEnter(){
     if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
       this.router.navigate(['home']);
     }
