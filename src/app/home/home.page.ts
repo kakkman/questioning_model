@@ -102,7 +102,13 @@ export class HomePage {
   }
 
   openAccountPage(account){
+    console.log(account);
     this.auth.setCurrentAccount(account);
+        let navigationExtras: NavigationExtras = {
+      queryParams: {
+        currAcct: account
+      }
+    };
     this.router.navigate(['acct-info']);
   }
 

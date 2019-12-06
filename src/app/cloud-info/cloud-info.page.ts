@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-cloud-info',
@@ -10,21 +11,28 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class CloudInfoPage implements OnInit {
 
+  public currentAccount;
+
   constructor(private route: ActivatedRoute, 
     private router: Router, 
-    public auth: AuthenticationService) { 
-    if(!this.auth.tokenIsValid())
-    {
-      //navigating back to login
-      this.router.navigate(['login']);
-    }
+    public auth: AuthenticationService,
+    public storage: Storage) { 
+    this.route.queryParams.subscribe(params => {
+      if (params && params.currAcct) {
+        this.currentAccount = params.currAcct;
+      }
+    });
+    let that = this;
+    this.storage.get('currentAccount').then((val)=> {
+        that.currentAccount = val;
+      });
   }
 
   ngOnInit() {
   }
 
-  async ionViewWillEnter(){
-    if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
+  ionViewWillEnter(){
+    if(this.currentAccount === undefined || this.currentAccount === null){
       this.router.navigate(['home']);
     }
   }
@@ -36,42 +44,43 @@ export class CloudInfoPage implements OnInit {
         name: cloudName,
         services: []
       }
-  		this.auth.currentAccount.clouds.push(cloudProvider);
+  		this.currentAccount.clouds.push(cloudProvider);
   	}
   	else{
       //removes cloud
-      let obj = this.auth.currentAccount.clouds.find(x => x.name === cloudName)
-      let index = this.auth.currentAccount.clouds.indexOf(obj);
+      let obj = this.currentAccount.clouds.find(x => x.name === cloudName)
+      let index = this.currentAccount.clouds.indexOf(obj);
 
   		if(index!= -1) {
-  			this.auth.currentAccount.clouds.splice(index, 1);
+  			this.currentAccount.clouds.splice(index, 1);
   		}
   	}
   }
 
   hasCloud(cloud){
-    let obj = this.auth.currentAccount.clouds.find(x => x.name === cloud)
-    let index = this.auth.currentAccount.clouds.indexOf(obj);
+    let obj = this.currentAccount.clouds.find(x => x.name === cloud)
+    let index = this.currentAccount.clouds.indexOf(obj);
     return(index != -1);
   }
 
   updateService(index, service) {
-    this.auth.currentAccount.clouds[index].services.push(service);
+    this.currentAccount.clouds[index].services.push(service);
   }
 
   hasService(i, service) {
-    let cloud = this.auth.currentAccount.clouds[i].services
+    let cloud = this.currentAccount.clouds[i].services
     return(cloud.indexOf(service) != -1)
   }
 
   
   complete(page){
-    this.auth.currentAccount.cloudComplete = true;
+    this.currentAccount.cloudComplete = true;
     this.navigateToPage(page);
   }
 
 
   navigateToPage(page) {
+    this.auth.setCurrentAccount(this.currentAccount);
     this.auth.updateCurrentAccount();
     this.router.navigate([page]);
   }

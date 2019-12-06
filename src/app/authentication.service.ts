@@ -19,8 +19,6 @@ export class AuthenticationService {
 	public entitledDeployedDB;
 	public prospectingDB;
 
-  public currentAccount
-
 	constructor(public storage: Storage) { 
 
 		//all for user information collection 

@@ -13,10 +13,16 @@ export class AcctInfoPage {
   public currentAccount;
 
   constructor(public storage: Storage, public auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.currAcct) {
+        this.currentAccount = params.currAcct
+      }
+    });
     let that = this;
     this.storage.get('currentAccount').then((val)=> {
         that.currentAccount = val;
       });
+    console.log(this.currentAccount.name);
   }
 
   async ionViewWillEnter(){
@@ -61,8 +67,14 @@ export class AcctInfoPage {
 
 
   navigateToPage(page) {
-    this.auth.setCurrentAccount(null);
-    this.router.navigate([page]);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        currAcct: this.currentAccount
+      }
+    };
+    this.router.navigate([page], navigationExtras);
+  
+   // this.router.navigate([page]);
   }
 
 }
