@@ -81,7 +81,6 @@ export class AuthenticationService {
     let that = this;
     return this.storage.get('tokens').then((val)=> {
       let now = new Date().getTime(); 
-      console.log("THIS IS THE VALUE OF VAL:" + val);
       if (val != null) {
         if(now < val.accessTokenPayload.exp){
           that.logOut();
@@ -94,7 +93,6 @@ export class AuthenticationService {
     }); 
   }
 
-  //everything beloow has been updated
   logOut(){
     //revoke token and remove current information. 
     this.setTokens(null);
@@ -119,7 +117,6 @@ export class AuthenticationService {
   }
 
   setUserInfo(userInfo){
-    console.log("Setting user info to:" + userInfo);
     this.storage.set("userInfo", userInfo);
   }
 

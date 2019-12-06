@@ -20,12 +20,9 @@ export class HomePage {
 
   async ionViewWillEnter(){
     let that = this;
-    console.log("View will enter");
     var email;
-    console.log(this.auth.getUserInfo());
     this.auth.getUserInfo().then(res =>{
       email = res.email;
-      console.log("email is" + email);
       that.auth.database.get(email).then(function(doc) {
         that.accounts = doc["accounts"];
        }).catch(function (err) {
@@ -37,7 +34,6 @@ export class HomePage {
   async presentAlert() {
     let that = this;
     var userInfo;
-    console.log("PRESENT ALERT CLICKED");
     await this.auth.getUserInfo().then(user =>{
       userInfo = user.email;
     }).then(res =>{
@@ -107,7 +103,6 @@ export class HomePage {
 
   openAccountPage(account){
     this.auth.setCurrentAccount(account);
-    console.log("setting current account");
     this.router.navigate(['acct-info']);
   }
 
@@ -123,7 +118,6 @@ export class HomePage {
       this.auth.database.get(userInfo).then(data => {
         doc = data;
         obj = doc["accounts"].find(x => x.name === account.name);
-        console.log("OBJ IS " + obj)
         index = doc["accounts"].indexOf(obj);
         that.alertCtrl.create({
       message: 'Update Account',
