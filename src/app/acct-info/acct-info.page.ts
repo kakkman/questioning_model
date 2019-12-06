@@ -8,60 +8,64 @@ import { Storage } from '@ionic/storage';
   templateUrl: './acct-info.page.html',
   styleUrls: ['./acct-info.page.scss'],
 })
-export class AcctInfoPage {
-
-  public currentAccount;
+export class AcctInfoPage implements OnInit {
 
   constructor(public storage: Storage, public auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
-    let that = this;
-    this.storage.get('currentAccount').then((val)=> {
-        that.currentAccount = val;
-      });
+       let that = this;
+
+ this.storage.get('currentAccount').then((val)=> {
+      that.auth.currentAccount = val;
+    });
+  }
+
+  ngOnInit() {
+     //this.auth.updateCurrentAccount()
   }
 
   async ionViewWillEnter(){
     let that = this;
     this.storage.get('currentAccount').then((val)=> {
-      that.currentAccount = val;
-      if(this.currentAccount === undefined || this.currentAccount === null){
-        this.router.navigate(['home']);
-      }
+      that.auth.currentAccount = val;
     });
+
+    if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
+      this.router.navigate(['home']);
+    }
   }
 
   //getter methods to prevent error from async loading
 
-  getAccountName(){
-    if(this.currentAccount === undefined){
+  getAccountName()
+  {
+    if(this.auth.currentAccount === undefined){
       return "";
     }
-    return this.currentAccount.name
+    return this.auth.currentAccount.name
   }
 
   entitledDeployed(){
-    if(this.currentAccount === undefined){
+    if(this.auth.currentAccount === undefined){
       return false;
     }
-    return this.currentAccount.entitledComplete
+    return this.auth.currentAccount.entitledComplete
   }
 
   cloudInfo(){
-    if(this.currentAccount === undefined){
+    if(this.auth.currentAccount === undefined){
       return false;
     }
-    return this.currentAccount.cloudComplete
+    return this.auth.currentAccount.cloudComplete
   }
 
   prospecting(){
-    if(this.currentAccount === undefined){
+    if(this.auth.currentAccount === undefined){
       return false;
     }
-    return this.currentAccount.prospectComplete
+    return this.auth.currentAccount.prospectComplete
   }
 
 
   navigateToPage(page) {
-    this.auth.setCurrentAccount(null);
     this.router.navigate([page]);
   }
 
