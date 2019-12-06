@@ -11,44 +11,29 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class LoginPage {
 
-  public acctInfo:any;
   constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService){
-  	//TODO: IF LOGGED IN, AUTO NAVIGATE
-    this.autoLogin();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-    //if(this.auth.tokens.accessToken != null && this.auth.tokens.accessToken){}
-  }
-
-  ionViewWillEnter(){
-        this.autoLogin();
-  }
-
-//logs user in and creates database entry if it didn't exist already
+ //logs user in and creates database entry if it didn't exist already
   public async logIn() {
     let that = this;
    	try {
   		const tokens = await this.auth.appID.signin();
-      this.auth.tokens = tokens;
-      this.auth.appID.getUserInfo(this.auth.tokens.accessToken).then(res => {
-        that.auth.userInfo = res;
-        //save userInfo and tokens. 
-        that.auth.saveUserAccount();
-
-        that.auth.database.get(that.auth.userInfo.email).then(function(doc) {
-          console.log("Account with email " + res.email + " exists. Logging in.");
-          that.auth.accounts = doc["accounts"];
+      this.auth.setTokens(tokens);
+      this.auth.appID.getUserInfo(tokens.accessToken).then(userInfo => {
+        this.auth.setUserInfo(userInfo);
+        that.auth.database.get(userInfo.email).then(function(doc) {
+          console.log("Account with email " + userInfo.email + " exists. Logging in.");
           that.router.navigate(['home']);
-
         }).catch(function (err) {
           console.log(err);
           //new account does not exist, create account.
-          if(err.status == '404')
-          {
+          if(err.status == '404'){
             console.log("Creating Account...");
-            that.auth.database.put({'_id':that.auth.userInfo.email,'name': that.auth.userInfo.name, 'email': that.auth.userInfo.email}).then((resp) => {
+            that.auth.database.put({'_id':userInfo.email,
+              'name':userInfo.name, 
+              'email': userInfo.email
+            }).then((resp) => {
               that.router.navigate(['home']);
             }).catch((e) => {
               console.log(e);
@@ -59,21 +44,5 @@ export class LoginPage {
 		} catch (e) {
 			console.log(e);
 		}
-  }
-
-  public autoLogin(){
-    if(this.auth.tokenIsValid()){
-
-      let that = this;
-      this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
-        console.log("Account Information Saved. Logging in.");
-        let navigationExtras: NavigationExtras = {
-          state: {
-            accountInfo: doc
-          }
-        };
-        that.router.navigate(['home'], navigationExtras);
-      })
-    }
   }
 }

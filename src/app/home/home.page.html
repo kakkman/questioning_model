@@ -17,7 +17,7 @@
     <p>Getting started:</p>
     <p>Start by defining your accounts via the button in the top right corner. You can put in information about the specific companies, as well as specific notes you would like to leave for yourself. After creating your account, click view to explore options regarding their current entitlements and deployments, their cloud environment, and potential prospecting questions. After all information has been filled out, a report will be generated for you with links to appropriate sales kits.
   </div>
-  <ion-card *ngFor = "let account of this.auth.accounts">
+  <ion-card *ngFor = "let account of accounts">
   	  <ion-item>
   	<ion-card-header>
       <ion-card-title>{{account.name}}</ion-card-title>

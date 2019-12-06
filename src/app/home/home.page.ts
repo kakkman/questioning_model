@@ -10,6 +10,8 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class HomePage {
 
+  accounts = [];
+
   constructor(private route: ActivatedRoute, 
     private alertCtrl: AlertController, 
     private router: Router, 
@@ -18,90 +20,95 @@ export class HomePage {
 
   async ionViewWillEnter(){
     let that = this;
-    this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
-        that.auth.accounts = doc["accounts"];
-        return true;
+    console.log("View will enter");
+    var email;
+    console.log(this.auth.getUserInfo());
+    this.auth.getUserInfo().then(res =>{
+      email = res.email;
+      console.log("email is" + email);
+      that.auth.database.get(email).then(function(doc) {
+        that.accounts = doc["accounts"];
        }).catch(function (err) {
          console.log(err);
       });
-    return false;
+    })
   }
 
   async presentAlert() {
     let that = this;
-    const alert = await this.alertCtrl.create({
-      message: 'Create a New Business Profile',
-      inputs: [
-        {
-            name: 'name',
-            placeholder: 'Business Name'
-        },
-        {
-            name: 'location',
-            placeholder: 'Location',
-        },
-        {
-          	name: 'date',
-          	placeholder: 'date',
-          	type: 'date'
-        },
-        {
-          	name: "info",
-          	placeholder: "Additional Client Info",
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
+    var userInfo;
+    console.log("PRESENT ALERT CLICKED");
+    await this.auth.getUserInfo().then(user =>{
+      userInfo = user.email;
+    }).then(res =>{
+      that.alertCtrl.create({
+        message: 'Create a New Business Profile',
+        inputs: [
+          {
+              name: 'name',
+              placeholder: 'Business Name'
+          },
+          {
+              name: 'location',
+              placeholder: 'Location',
+          },
+          {
+              name: 'date',
+              placeholder: 'date',
+              type: 'date'
+          },
+          {
+              name: "info",
+              placeholder: "Additional Client Info",
           }
-        },
-        {
-          text: 'Create',
-          handler: data => {
-            console.log('Create clicked');
-            let newAcct = {
-              name: data.name,
-              location: data.location,
-              date: data.date,
-              info: data.info,
-              entitledDeployed: [],
-              clouds: [],
-              vmware: "",
-              docker: "",
-              questions: [],
-              report: []
-            };
-            this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
-              if(doc["accounts"] == null)
-              {
-                 doc["accounts"] = [];
-              }
-              doc["accounts"].unshift(newAcct);
-              //TODO: CHECK TO SEE DUPLICATE ACCOUNTS, ETC
-              that.auth.database.put(doc).then(res => {
-                that.auth.accounts = doc["accounts"];
-              });
-            });                    
-        }
-      }]    
+        ],
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Create',
+            handler: data => {
+              console.log('Create clicked');
+              let newAcct = {
+                name: data.name,
+                location: data.location,
+                date: data.date,
+                info: data.info,
+                entitledDeployed: [],
+                clouds: [],
+                vmware: "",
+                docker: "",
+                questions: [],
+                report: []
+              };
+              this.auth.database.get(userInfo).then(function(doc) {
+                if(doc["accounts"] == null)
+                {
+                   doc["accounts"] = [];
+                }
+                doc["accounts"].unshift(newAcct);
+                //TODO: CHECK TO SEE DUPLICATE ACCOUNTS, ETC
+                that.auth.database.put(doc).then(res => {
+                  that.accounts = doc["accounts"];
+                });
+              });                    
+          }
+        }]    
+      }).then(results => {
+        results.present();
+      });
     });
-    await alert.present(); 
   }
 
   openAccountPage(account){
-    this.auth.currentAccount = account;
+    this.auth.setCurrentAccount(account);
     console.log("setting current account");
-    this.auth.saveCurrentAccount();
     this.router.navigate(['acct-info']);
-  }
-
-  async getAcct(account){
-    return this.auth.database.get(this.auth.userInfo.email).then(function(doc) {
-      return doc;
-    });
   }
 
   async updateAccount(account){
@@ -109,12 +116,16 @@ export class HomePage {
     var index;
     var obj;
     var doc;
-    await this.getAcct(account).then(data => {
-      doc = data;
-      obj = doc["accounts"].find(x => x.name === account.name);
-      index = doc["accounts"].indexOf(obj);
-    });
-    const alert = await this.alertCtrl.create({
+    var userInfo;
+    await this.auth.getUserInfo().then(user =>{
+      userInfo = user.email;
+    }).then(res =>{
+      this.auth.database.get(userInfo).then(data => {
+        doc = data;
+        obj = doc["accounts"].find(x => x.name === account.name);
+        console.log("OBJ IS " + obj)
+        index = doc["accounts"].indexOf(obj);
+        that.alertCtrl.create({
       message: 'Update Account',
       inputs: [
         {
@@ -158,7 +169,7 @@ export class HomePage {
             };
             doc["accounts"][index] = obj;
             that.auth.database.put(doc).then(res => {
-                that.auth.accounts = doc["accounts"];                   
+                that.accounts = doc["accounts"];                   
           });
           }      
         },
@@ -169,9 +180,10 @@ export class HomePage {
             console.log('Cancel clicked');
           }
         }
-      ]    
+      ]  
+    }).then(results =>{results.present()});
+      }); 
     });
-    await alert.present();  
   }
 
   async delete(account){
@@ -179,38 +191,41 @@ export class HomePage {
     var index;
     var obj;
     var doc;
-    await this.getAcct(account).then(data => {
-      doc = data;
-      obj = doc["accounts"].find(x => x.name === account.name);
-      index = doc["accounts"].indexOf(obj);
+    var userInfo;
+    await this.auth.getUserInfo().then(user =>{
+      userInfo = user.email;
+    }).then(res =>{
+      this.auth.database.get(userInfo).then(data => {
+        doc = data;
+        obj = doc["accounts"].find(x => x.name === account.name);
+        index = doc["accounts"].indexOf(obj);
+        that.alertCtrl.create({
+          message: 'Are you sure you want to delete this account?',
+          buttons: [
+            {
+              text: 'Delete',
+              role: 'delete',
+              cssClass:"color=Danger",
+              handler: data => {
+                doc["accounts"].splice(index, 1);
+                that.auth.database.put(doc).then(res => {
+                  that.accounts = doc["accounts"];
+                });
+              }
+            },
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        }).then(results =>{results.present()});
+      }); 
     });
-
-    const alert = await this.alertCtrl.create({
-      message: 'Are you sure you want to delete this account?',
-      buttons: [
-        {
-          text: 'Delete',
-          role: 'delete',
-          cssClass:"color=Danger",
-          handler: data => {
-            doc["accounts"].splice(index, 1);
-            that.auth.database.put(doc).then(res => {
-              that.auth.accounts = doc["accounts"];
-            });
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    await alert.present();  
   }
-
+   
   logOut(){
     this.auth.logOut();
     this.router.navigate(['login']);
