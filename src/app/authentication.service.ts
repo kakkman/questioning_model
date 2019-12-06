@@ -19,7 +19,7 @@ export class AuthenticationService {
 	public entitledDeployedDB;
 	public prospectingDB;
 
-  public currentAccount
+  public currentAccount;
 
 	constructor(public storage: Storage) { 
 
@@ -59,21 +59,24 @@ export class AuthenticationService {
 	}
 
   updateCurrentAccount(){
-    /*let that = this
-    let user = this.getUserInfo()
-    user.email = ob
-    this.database.get(this.getUserInfo().email).then(function(doc) {
-      if(doc["accounts"] != null){
-        for(var i = 0; i < doc["accounts"].length; i++){
-          if (doc["accounts"][i].name === that.currentAccount.name){
-            doc["accounts"][i] = that.currentAccount;
+    this.setCurrentAccount(this.currentAccount);
+    var userInfo;
+    var that = this;
+    this.getUserInfo().then(user =>{
+      userInfo = user.email;
+    }).then(res =>{
+      this.database.get(userInfo).then(doc => {
+        if(doc["accounts"] != null){
+          for(var i = 0; i < doc["accounts"].length; i++){
+            console.log(this.currentAccount);
+            if (doc["accounts"][i].name === that.currentAccount.name){
+              doc["accounts"][i] = that.currentAccount;
+            }
           }
+          that.database.put(doc)
         }
-        that.database.put(doc).then(res => {
-          that.accounts = doc["accounts"];
-        });
-      }
-    }); */
+      }) 
+    })
   }
 
   //checks the time remaining on the certificate
