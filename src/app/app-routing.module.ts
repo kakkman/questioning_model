@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'report', loadChildren: './report/report.module#ReportPageModule', canActivate:[AuthGuardService] },
   { path: 'questions', loadChildren: './questions/questions.module#QuestionsPageModule', canActivate:[AuthGuardService]},
   { path: 'home', loadChildren: './home/home.module#HomePageModule', canActivate:[AuthGuardService]},
-  { path: 'competitive-install', loadChildren: './competitive-install/competitive-install.module#CompetitiveInstallPageModule' }
+  { path: 'competitive-install', loadChildren: './competitive-install/competitive-install.module#CompetitiveInstallPageModule', canActivate:[AuthGuardService]}
   ];
 
 @NgModule({
