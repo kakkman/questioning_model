@@ -18,6 +18,7 @@ export class AuthenticationService {
 
 	public entitledDeployedDB;
 	public prospectingDB;
+  public competitiveInstallDB;
 
   public currentAccount;
 
@@ -52,10 +53,13 @@ export class AuthenticationService {
    		//database for prospecting questions
    		this.prospectingDB = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/prospecting_questions");
    		this.prospectingDB.sync(this.remote, options);
+
+      //database for competitive install items
+      this.competitiveInstallDB = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/competitive_install");
+      this.competitiveInstallDB.sync(this.remote, options);
    } catch(error){
       console.log(error);
    }
-   //attempts to load from last session. 
 	}
 
   updateCurrentAccount(){

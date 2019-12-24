@@ -12,16 +12,15 @@ import { AuthenticationService } from '../authentication.service';
 
 export class CompetitiveInstallPage implements OnInit {
 
-public products;
-
+  public products;
 
   constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService) { 
-   // this.auth.entitledDeployedDB.allDocs({include_docs: true}).then(res => {
-    //  this.product = res.rows;
-   // });
+    this.auth.competitiveInstallDB.allDocs({include_docs: true}).then(res => {
+      this.products = res.rows;
+    });
   }
 
-    ngOnInit() {
+  ngOnInit() {
   }
 
   async ionViewWillEnter(){
@@ -42,25 +41,22 @@ public products;
 
   checkedItem(e, item) {
   	if(e.currentTarget.checked) {
-  		this.auth.currentAccount.entitledDeployed.push(item);
+  		this.auth.currentAccount.competitiveInstall.push(item);
   	}
   	else {
-  		var index = this.auth.currentAccount.entitledDeployed.indexOf(item);
+  		var index = this.auth.currentAccount.competitiveInstall.indexOf(item);
   		if(index!= -1) {
-  			this.auth.currentAccount.entitledDeployed.splice(index, 1);
+  			this.auth.currentAccount.competitiveInstall.splice(index, 1);
   		}
   	}
   }
 
   hasItem(item)
   {
-    if(item != null)
-    {
-  	let hasItem = this.auth.currentAccount.entitledDeployed.indexOf(item) != -1;
-    return hasItem;
+    if(item != null) {
+  		let hasItem = this.auth.currentAccount.competitiveInstall.indexOf(item) != -1;
+    	return hasItem;
     }
-    return false;
-  	
+    return false;	
   }
-
 }
