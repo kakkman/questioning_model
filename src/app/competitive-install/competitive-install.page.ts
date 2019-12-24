@@ -41,6 +41,10 @@ export class CompetitiveInstallPage implements OnInit {
   }
 
   checkedItem(e, item) {
+  	if(this.auth.currentAccount.competitiveInstall === undefined)
+  	{
+  		this.auth.currentAccount.competitiveInstall = [];
+  	}
   	if(e.currentTarget.checked) {
   		this.auth.currentAccount.competitiveInstall.push(item);
   	}
