@@ -62,7 +62,7 @@ export class AcctInfoPage implements OnInit {
     if(this.auth.currentAccount === undefined){
       return false;
     }
-    return this.auth.currentAccount.competitiveInstall
+    return this.auth.currentAccount.competitiveComplete
   }
 
   navigateToPage(page) {
