@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'cloud-info', loadChildren: './cloud-info/cloud-info.module#CloudInfoPageModule', canActivate:[AuthGuardService] },
   { path: 'report', loadChildren: './report/report.module#ReportPageModule', canActivate:[AuthGuardService] },
   { path: 'questions', loadChildren: './questions/questions.module#QuestionsPageModule', canActivate:[AuthGuardService]},
-  { path: 'home', loadChildren: './home/home.module#HomePageModule', canActivate:[AuthGuardService]}
+  { path: 'home', loadChildren: './home/home.module#HomePageModule', canActivate:[AuthGuardService]},
+  { path: 'competitive-install', loadChildren: './competitive-install/competitive-install.module#CompetitiveInstallPageModule' }
   ];
 
 @NgModule({

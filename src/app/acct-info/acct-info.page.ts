@@ -11,9 +11,8 @@ import { Storage } from '@ionic/storage';
 export class AcctInfoPage implements OnInit {
 
   constructor(public storage: Storage, public auth: AuthenticationService, private route: ActivatedRoute, private router: Router) {
-       let that = this;
-
- this.storage.get('currentAccount').then((val)=> {
+    let that = this;
+    this.storage.get('currentAccount').then((val)=> {
       that.auth.currentAccount = val;
     });
   }
@@ -27,14 +26,9 @@ export class AcctInfoPage implements OnInit {
     this.storage.get('currentAccount').then((val)=> {
       that.auth.currentAccount = val;
     });
-
-   // if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
-    //  this.router.navigate(['home']);
-   // }
   }
 
   //getter methods to prevent error from async loading
-
   getAccountName()
   {
     if(this.auth.currentAccount === undefined){
@@ -64,6 +58,12 @@ export class AcctInfoPage implements OnInit {
     return this.auth.currentAccount.prospectComplete
   }
 
+  competitiveInstall(){
+    if(this.auth.currentAccount === undefined){
+      return false;
+    }
+    return this.auth.currentAccount.competitiveInstall
+  }
 
   navigateToPage(page) {
     this.router.navigate([page]);

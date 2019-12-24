@@ -17,6 +17,16 @@
     <ion-button *ngIf="!entitledDeployed()" fill="outline" slot="end" color = "danger">Incomplete</ion-button>
   </ion-item>
 </ion-card>
+<ion-card (click)="navigateToPage('/competitive-install')" style="cursor: pointer;">
+    <ion-item>
+  <ion-card-header>
+    <ion-card-title>Competitive Install Base</ion-card-title>
+  </ion-card-header>
+    <ion-icon name="contacts" slot="start"></ion-icon>
+    <ion-button *ngIf="competitiveInstall()" fill="outline" slot="end">Complete</ion-button>
+    <ion-button *ngIf="!competitiveInstall()" fill="outline" slot="end" color = "danger">Incomplete</ion-button>
+  </ion-item>
+</ion-card>
 	<ion-card (click)="navigateToPage('/cloud-info')" style="cursor: pointer;">
 	  <ion-item>
 	<ion-card-header>
