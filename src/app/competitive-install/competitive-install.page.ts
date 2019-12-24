@@ -12,21 +12,22 @@ import { AuthenticationService } from '../authentication.service';
 
 export class CompetitiveInstallPage implements OnInit {
 
-  public products;
+  public products: any;
 
   constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService) { 
-    this.auth.competitiveInstallDB.allDocs({include_docs: true}).then(res => {
+    this.auth.entitledDeployedDB.allDocs({include_docs: true}).then(res => {
       this.products = res.rows;
     });
-  }
-
-  ngOnInit() {
   }
 
   async ionViewWillEnter(){
     if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
       this.router.navigate(['home']);
     }
+  }
+
+  ngOnInit(){
+
   }
 
   complete(page){
@@ -51,9 +52,14 @@ export class CompetitiveInstallPage implements OnInit {
   	}
   }
 
+  removeDuplicateAndSort(array){
+  	let toReturn = Array.from(new Set(array)).sort();
+  	return toReturn;
+  }
+
   hasItem(item)
   {
-    if(item != null) {
+    if(item != null && this.auth.currentAccount.competitiveInstall != undefined) {
   		let hasItem = this.auth.currentAccount.competitiveInstall.indexOf(item) != -1;
     	return hasItem;
     }

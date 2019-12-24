@@ -32,7 +32,6 @@ export class EntitledDeployedPage {
   }
 
   navigateToPage(page) {
-    this.auth.setCurrentAccount(this.auth.currentAccount);
     this.auth.updateCurrentAccount();
     this.router.navigate([page]);
   }

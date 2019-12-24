@@ -13,8 +13,8 @@
       <ion-card-title>{{category.doc.name}}</ion-card-title>
     </ion-card-header>
     </ion-item>
-    <ion-item *ngFor="let product of category.doc.products">
-      <ion-checkbox disabled="false" (ionChange)="checkedItem($event, product)" [checked]="hasItem(product)"></ion-checkbox><p> &nbsp;{{product}}</p>
+    <ion-item *ngFor="let product of category.doc.products.competitive">
+      <ion-checkbox disabled="false" (ionChange)="checkedItem($event, product)" [checked]="hasItem(product)"></ion-checkbox><p> &nbsp;{{product.competitive}}</p>
     </ion-item>
   </ion-card>
   <ion-button expand="block" (click)="complete('/acct-info')">Continue</ion-button>
