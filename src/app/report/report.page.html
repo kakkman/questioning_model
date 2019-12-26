@@ -13,11 +13,15 @@
         <ion-card-title>{{this.auth.currentAccount.name}} Breakdown and Summary</ion-card-title>
       </ion-card-header>
     </ion-item>
-    <ion-item>IBM Services</ion-item>
-    <p *ngFor="let item of this.auth.currentAccount.entitledDeployed">&nbsp;{{item}}</p>
+    <ion-item>IBM Services currently entitled or deployed:</ion-item>
+    <ion-item *ngFor="let item of this.auth.currentAccount.entitledDeployed">
+    &nbsp;{{item}}<br/>
+  </ion-item>
   </ion-card>
   <ion-card>
-  	<ion-card-title>{{this.auth.currentAccount.name}} Recommended Sales Play</ion-card-title>
+    <ion-card-header>
+  	  <ion-card-title>{{this.auth.currentAccount.name}} Recommended Sales Play</ion-card-title>
+    </ion-card-header>
   </ion-card>
   <ion-card *ngIf="this.auth.currentAccount.vmware === 'true'">
     <ion-card-title>We recommend this sales play: VMWare on IBM Cloud</ion-card-title>
@@ -27,15 +31,19 @@
   <ng-container *ngFor="let product of questions">
     <ng-container *ngIf="product.doc.questions.length > 0 && filter(product).length > 0">
       <ion-card>
-        <ion-card-title>We recommend this sales play: {{product.doc.name}}</ion-card-title>
+        <ion-card-header>
+          <ion-card-title>We recommend this sales play: {{product.doc.name}}</ion-card-title>
+        </ion-card-header>
         		<ion-item>Because of the way you answered the following questions:</ion-item>
-            <p *ngFor = "let goodPath of filter(product)">&nbsp;{{goodPath.question}} {{goodPath.good}}</p>
+            <ion-item *ngFor = "let goodPath of filter(product)">&nbsp;{{goodPath.question}} {{goodPath.good}}</ion-item>
             <ion-item><a href={{product.doc.url}} target="_blank">Link to sales play</a></ion-item>
       </ion-card>
     </ng-container>
   </ng-container>
   <ion-card *ngFor="let product of this.auth.currentAccount.competitiveInstall">
-    <ion-card-title> We recommend the sales play for: {{product.name}}</ion-card-title>
+    <ion-card-header>
+      <ion-card-title> We recommend the sales play for: {{product.name}}</ion-card-title>
+    </ion-card-header>
     <ion-item>Because your client is currently using these competitive products: {{product.competitive}}</ion-item>
     <ion-item><a href="google.com" target="_blank">Link to sales play</a></ion-item>
   </ion-card>
