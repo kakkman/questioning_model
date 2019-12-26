@@ -64,7 +64,7 @@ export class CompetitiveInstallPage implements OnInit {
   			//removes singular item from competitive install list. 
   			var competitiveIndex = this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.indexOf(item);
   			if(competitiveIndex!= -1) {
-  				this.auth.currentAccount.competitiveInstall.competitive.splice(competitiveIndex, 1);
+  				this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.splice(competitiveIndex, 1);
   				//removes product completely from competitive install section if there are no competitors in use.
   				if(this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.length == 0){
   					this.auth.currentAccount.competitiveInstall.splice(indexOfProduct,1);
