@@ -16,7 +16,7 @@
     <ng-container *ngFor="let product of category.doc.products">
     	<ng-container *ngFor="let item of removeDuplicateAndSort(product.competitive)">
     		<ion-item>
-      		<ion-checkbox  disabled="false" (ionChange)="checkedItem($event, product)" [checked]="hasItem(product)"></ion-checkbox><p> &nbsp;{{item}}</p>
+      		<ion-checkbox  disabled="false" (ionChange)="checkedItem($event, item, product.name)" [checked]="hasItem(item, product.name)"></ion-checkbox><p> &nbsp;{{item}}</p>
       	</ion-item>
     	</ng-container>
 	</ng-container>

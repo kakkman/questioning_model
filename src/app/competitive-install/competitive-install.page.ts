@@ -40,18 +40,36 @@ export class CompetitiveInstallPage implements OnInit {
     this.router.navigate([page]);
   }
 
-  checkedItem(e, item) {
-  	if(this.auth.currentAccount.competitiveInstall === undefined)
-  	{
+  checkedItem(e, item, product) {
+  	if(this.auth.currentAccount.competitiveInstall === undefined) {
   		this.auth.currentAccount.competitiveInstall = [];
   	}
+  	var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(i => i.name === product);
   	if(e.currentTarget.checked) {
-  		this.auth.currentAccount.competitiveInstall.push(item);
-  	}
-  	else {
-  		var index = this.auth.currentAccount.competitiveInstall.indexOf(item);
-  		if(index!= -1) {
-  			this.auth.currentAccount.competitiveInstall.splice(index, 1);
+  		//checks to see if the ibm related product is already on there, if it isn't it adds it. 
+  		if(indexOfProduct != -1) {
+  			if(!this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.includes(item)){
+  				this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.push(item);
+  			}
+  		} else {
+  			//pushes as array to allow for more competitive products to be added.
+  			var newCompetitive = {
+  				name: product,
+  				competitive: [item]
+  			};
+  			this.auth.currentAccount.competitiveInstall.push(newCompetitive);
+  		}
+  	} else {
+  		if(indexOfProduct != -1) {
+  			//removes singular item from competitive install list. 
+  			var competitiveIndex = this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.indexOf(item);
+  			if(competitiveIndex!= -1) {
+  				this.auth.currentAccount.competitiveInstall.competitive.splice(competitiveIndex, 1);
+  				//removes product completely from competitive install section if there are no competitors in use.
+  				if(this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.length == 0){
+  					this.auth.currentAccount.competitiveInstall.splice(indexOfProduct,1);
+  				}
+  			}
   		}
   	}
   }
@@ -61,11 +79,12 @@ export class CompetitiveInstallPage implements OnInit {
   	return toReturn;
   }
 
-  hasItem(item)
-  {
+  hasItem(item, product) {
     if(item != null && this.auth.currentAccount.competitiveInstall != undefined) {
-  		let hasItem = this.auth.currentAccount.competitiveInstall.indexOf(item) != -1;
-    	return hasItem;
+    	var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(i => i.name === product);
+    	if(indexOfProduct != -1){
+    		return this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.includes(item)
+    	}
     }
     return false;	
   }
