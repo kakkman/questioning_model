@@ -74,6 +74,7 @@ export class CompetitiveInstallPage implements OnInit {
   	}
   }
 
+//TODO FIX SORTING FOR THIS.  probably a map of some kind
   removeDuplicateAndSort(array){
   	let toReturn = Array.from(new Set(array)).sort();
   	return toReturn;

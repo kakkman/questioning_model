@@ -13,6 +13,8 @@ export class ReportPage implements OnInit {
   questions: any;
   positiveList: any;
 
+  competitiveProducts: any;
+
   constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService) { 
     this.auth.updateCurrentAccount();
     this.auth.prospectingDB.allDocs({include_docs: true}).then(res => {
