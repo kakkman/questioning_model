@@ -38,10 +38,11 @@ export class EntitledDeployedPage {
 
   checkedItem(e, item) {
   	if(e.currentTarget.checked) {
-  		this.auth.currentAccount.entitledDeployed.push(item);
+      console.log("Adding element" + item +"and it's name " + item.name);
+  		this.auth.currentAccount.entitledDeployed.push(item.name);
   	}
   	else {
-  		var index = this.auth.currentAccount.entitledDeployed.indexOf(item);
+  		var index = this.auth.currentAccount.entitledDeployed.indexOf(item.name);
   		if(index!= -1) {
   			this.auth.currentAccount.entitledDeployed.splice(index, 1);
   		}
@@ -52,7 +53,7 @@ export class EntitledDeployedPage {
   {
     if(item != null)
     {
-  	let hasItem = this.auth.currentAccount.entitledDeployed.indexOf(item) != -1;
+  	let hasItem = this.auth.currentAccount.entitledDeployed.indexOf(item.name) != -1;
     return hasItem;
     }
     return false;
