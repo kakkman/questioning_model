@@ -22,20 +22,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <!--ion-item *ngFor="let item of this.competitiveProductMap.get(category)">{{item.competitive}}</ion-item>
-    <ion-grid>
-      <ion-row>
-        <ng-container *ngFor="let product of category.doc.products">
-    			<ng-container *ngFor="let item of removeDuplicateAndSort(product.competitive)">
-    				<ion-col size="4">
-    					<ion-item>
-      					<ion-checkbox  disabled="false" (ionChange)="checkedItem($event, item, product.name)" [checked]="hasItem(item, product.name)"></ion-checkbox><p> &nbsp;{{item}}</p>
-      				</ion-item>
-      			</ion-col>
-    			</ng-container>
-				</ng-container>
-      </ion-row>
-    </ion-grid-->
   </ion-card>
   <ion-button expand="block" (click)="complete('/acct-info')">Continue</ion-button>
   <ion-item> </ion-item>
