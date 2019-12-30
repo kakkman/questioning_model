@@ -18,12 +18,7 @@ export class CompetitiveInstallPage implements OnInit {
   public competitiveProductMap = new Map();
   public productList: any;
 
-
-//what I want to do is map all of the competitive products as the main keys 
-///and then associate the ibm products with them separately so {name: watsonStudio, competitors: [x,y,z]}
   constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService) { 
-          //this.competitiveProductMap = new Map();
-
     this.auth.entitledDeployedDB.allDocs({include_docs: true}).then(res => {
       this.products = res.rows;
       //map by product sector / pillar 
@@ -39,14 +34,14 @@ export class CompetitiveInstallPage implements OnInit {
           if(prod[y].competitive != undefined) {
             for(var z = 0; z < prod[y].competitive.length; z++){
               var obj = currentArray.find(x => x.competitive === prod[y].competitive[z]);
+              //competitive item does not current exist in the schema.
               if(obj === undefined){
-                console.log("Unable to find, adding new item")
                 var newItem = {
                   competitive: prod[y].competitive[z],
                   ibm: [currentProduct]
                 }
                 currentArray.push(newItem)
-              } else {
+              } else { //it does exist
                 var index = currentArray.indexOf(obj);
                 var ibmProds = obj.ibm.concat(currentProduct);
 
@@ -65,10 +60,7 @@ export class CompetitiveInstallPage implements OnInit {
       console.log(this.competitiveProductMap);
       this.productList = Array.from(this.competitiveProductMap.keys());
     });
-    //map all products.
   }
-
-
 
   async ionViewWillEnter(){
     if(this.auth.currentAccount === undefined || this.auth.currentAccount === null){
@@ -90,66 +82,52 @@ export class CompetitiveInstallPage implements OnInit {
     this.router.navigate([page]);
   }
 
-  checkedItem(e, item, product) {
-  	if(this.auth.currentAccount.competitiveInstall === undefined) {
-  		this.auth.currentAccount.competitiveInstall = [];
-  	}
-  	var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(i => i.name === product);
-  	if(e.currentTarget.checked) {
-  		//checks to see if the ibm related product is already on there, if it isn't it adds it. 
-  		if(indexOfProduct != -1) {
-  			if(!this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.includes(item)){
-  				this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.push(item);
-  			}
-  		} else {
-  			//pushes as array to allow for more competitive products to be added.
-  			var newCompetitive = {
-  				name: product,
-  				competitive: [item]
-  			};
-  			this.auth.currentAccount.competitiveInstall.push(newCompetitive);
-  		}
-  	} else {
-  		if(indexOfProduct != -1) {
-  			//removes singular item from competitive install list. 
-  			var competitiveIndex = this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.indexOf(item);
-  			if(competitiveIndex!= -1) {
-  				this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.splice(competitiveIndex, 1);
-  				//removes product completely from competitive install section if there are no competitors in use.
-  				if(this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.length == 0){
-  					this.auth.currentAccount.competitiveInstall.splice(indexOfProduct,1);
-  				}
-  			}
-  		}
-  	}
-  }
+  checkItem(e, item){
+    let competitiveProduct = item.competitive;
+    let ibmProducts = item.ibm;
 
-//TODO FIX SORTING FOR THIS.  probably a map of some kind
-  removeDuplicateAndSort(array){
-  	let toReturn = Array.from(new Set(array)).sort();
-  	return toReturn;
-  }
-
-  /*removeDuplicateAndSort(items, category){
-    if(this.competitiveProductMap.has(category)){
-      var currArray = this.competitiveProductMap.get(category);
-      currArray = Array.from(currArray);
-      currArray = currArray.concat(items);
-      let toReturn = [...new Set(currArray)].sort();
-      this.competitiveProductMap.set(category, toReturn);
-    } else {
-      let toReturn = [...new Set(items)].sort();
-      this.competitiveProductMap.set(category, toReturn);
+    if(this.auth.currentAccount.competitiveInstall === undefined) {
+      this.auth.currentAccount.competitiveInstall = [];
     }
-  } */
+    for(var i = 0; i < ibmProducts.length; i++){
+      var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(i => i.name === ibmProducts[i]);
+      if(e.currentTarget.checked) {
+        //checks to see if the ibm related product is already on there, if it isn't it adds it. 
+        if(indexOfProduct != -1) {
+          this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.push(item);
+        } else {
+        //pushes as array to allow for more competitive products to be added.
+          var newCompetitive = {
+            name: ibmProducts[i],
+            competitive: [competitiveProduct]
+          };
+          this.auth.currentAccount.competitiveInstall.push(newCompetitive);
+        }
+      } else { //time to remove competitive product
+        if(indexOfProduct != -1){
+          var competitiveIndex = this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.indexOf(ibmProducts[i]);
+          if(competitiveIndex!= -1) {
+            this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.splice(competitiveIndex, 1);
+            //removes product completely from competitive install section if there are no competitors in use.
+            if(this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.length == 0){
+              this.auth.currentAccount.competitiveInstall.splice(indexOfProduct,1);
+            }
+          }
+        }
+      }
+    }
+  }
 
-  hasItem(item, product) {
+  hasItem(item){
+    let competitiveProduct = item.competitive;
+    let ibmProducts = item.ibm;
     if(item != null && this.auth.currentAccount.competitiveInstall != undefined) {
-    	var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(i => i.name === product);
-    	if(indexOfProduct != -1){
-    		return this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.includes(item)
-    	}
+
+      var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(i => i.name === ibmProducts[0]);
+      if(indexOfProduct != -1){
+        return this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.includes(competitiveProduct)
+      }
     }
-    return false;	
+    return false;
   }
 }

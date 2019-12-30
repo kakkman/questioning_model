@@ -17,7 +17,7 @@
       <ion-row>
         <ion-col size="4" *ngFor="let item of this.competitiveProductMap.get(category)">
           <ion-item>
-                <ion-checkbox  disabled="false"></ion-checkbox><p> &nbsp;{{item.competitive}}</p>
+                <ion-checkbox (ionChange)="checkItem($event, item)" [checked]="hasItem(item)" disabled="false"></ion-checkbox><p> &nbsp;{{item.competitive}}</p>
               </ion-item>
         </ion-col>
       </ion-row>
