@@ -39,17 +39,17 @@ export class CompetitiveInstallPage implements OnInit {
                 var newItem = {
                   competitive: prod[y].competitive[z],
                   ibm: [currentProduct],
-                  url: prod[y].url
+                  url: [prod[y].url]
                 }
                 currentArray.push(newItem)
               } else { //it does exist
                 var index = currentArray.indexOf(obj);
                 var ibmProds = obj.ibm.concat(currentProduct);
-
+                var ibmURLs = obj.url.concat(prod[y].url);
                 var updatedItem = {
                   competitive: obj.competitive,
                   ibm: ibmProds,
-                  url: prod[y].url
+                  url: ibmURLs
                 }
                 currentArray[index] = updatedItem;
               }
@@ -101,7 +101,7 @@ export class CompetitiveInstallPage implements OnInit {
         //pushes as array to allow for more competitive products to be added.
           var newCompetitive = {
             name: ibmProducts[i],
-            url: item.url,
+            url: item.url[i],
             competitive: [competitiveProduct]
           };
           this.auth.currentAccount.competitiveInstall.push(newCompetitive);
