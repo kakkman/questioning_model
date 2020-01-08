@@ -26,8 +26,8 @@ export class AuthenticationService {
 
 		//all for user information collection 
 		this.appID.init({
-			clientId: "cfff1466-8996-49f5-acb2-7a316cb082d7",
-			discoveryEndpoint: "https://us-south.appid.cloud.ibm.com/oauth/v4/547b2dd4-7a0f-4af5-b696-416798121de4/.well-known/openid-configuration"
+			clientId: "21013e6e-b7cd-4f5b-acfa-0c8001c4a3af",
+			discoveryEndpoint: "https://us-south.appid.cloud.ibm.com/oauth/v4/7d89648c-6d14-4d96-8e04-02b319d3dec0/.well-known/openid-configuration"
 		});
 
 		this.database = new PouchDB("https://cda4b381-5cbc-4adc-a069-f3a01615a817-bluemix.cloudantnosqldb.appdomain.cloud/user_info");
