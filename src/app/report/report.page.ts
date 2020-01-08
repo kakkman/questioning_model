@@ -14,13 +14,28 @@ export class ReportPage implements OnInit {
   positiveList: any;
 
   competitiveProducts: any;
+  entitledDeployed: any;
 
   constructor(private route: ActivatedRoute, private router: Router, public auth: AuthenticationService) { 
     this.auth.updateCurrentAccount();
-    this.auth.prospectingDB.allDocs({include_docs: true}).then(res => {
-      this.questions = res.rows;
+    let that = this;
+    this.auth.entitledDeployedDB.allDocs({include_docs:true}).then(res => {
+      that.entitledDeployed = res.rows;
+      that.auth.prospectingDB.allDocs({include_docs: true}).then(res2 => {
+        that.questions = res2.rows;
+      });
     });
   }
+
+  urlForProduct(productName){
+
+    let urlToReturn = this.entitledDeployed.find(x => x.name === productName);
+    if(urlToReturn != undefined){
+      return urlToReturn;
+    }
+    return "";
+  }
+
 
   filter(element) {
     var allPaths = [];
