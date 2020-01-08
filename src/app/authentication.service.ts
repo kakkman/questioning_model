@@ -30,11 +30,11 @@ export class AuthenticationService {
 			discoveryEndpoint: "https://us-south.appid.cloud.ibm.com/oauth/v4/547b2dd4-7a0f-4af5-b696-416798121de4/.well-known/openid-configuration"
 		});
 
-		this.database = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/test2");
-		this.remote = "https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/"
+		this.database = new PouchDB("https://cda4b381-5cbc-4adc-a069-f3a01615a817-bluemix.cloudantnosqldb.appdomain.cloud/user_info");
+		this.remote = "https://cda4b381-5cbc-4adc-a069-f3a01615a817-bluemix.cloudantnosqldb.appdomain.cloud"
 
-		this.username = "bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix"
-		this.password = "88db489b6233f8de00fe7d278e8c48bbf7c6825608901e360b7a3f92a5b62915"
+		this.username = "cda4b381-5cbc-4adc-a069-f3a01615a817-bluemix"
+		this.password = "4ac82e0648e732200cb48086e7ce602825aa0d90e14e097c90fe0f6434340c7f"
 
 		let options = {
 	    auth: {
@@ -47,16 +47,13 @@ export class AuthenticationService {
    		this.database.sync(this.remote, options);
 
    		//database for entitled deployed
-   		this.entitledDeployedDB = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/entitled_deployed");
+   		this.entitledDeployedDB = new PouchDB("https://cda4b381-5cbc-4adc-a069-f3a01615a817-bluemix.cloudantnosqldb.appdomain.cloud/entitled_deployed");
    		this.entitledDeployedDB.sync(this.remote, options);
 
    		//database for prospecting questions
-   		this.prospectingDB = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/prospecting_questions");
+   		this.prospectingDB = new PouchDB("https://cda4b381-5cbc-4adc-a069-f3a01615a817-bluemix.cloudantnosqldb.appdomain.cloud/prospecting_questions");
    		this.prospectingDB.sync(this.remote, options);
 
-      //database for competitive install items
-      this.competitiveInstallDB = new PouchDB("https://bf066fcc-9236-41e9-8ce0-0d3f9e8f28a9-bluemix.cloudantnosqldb.appdomain.cloud/competitive_install");
-      this.competitiveInstallDB.sync(this.remote, options);
    } catch(error){
       console.log(error);
    }
