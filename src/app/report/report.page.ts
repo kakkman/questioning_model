@@ -28,10 +28,11 @@ export class ReportPage implements OnInit {
   }
 
   urlForProduct(productName){
-
+    if(this.entitledDeployed != undefined){
     let urlToReturn = this.entitledDeployed.find(x => x.name === productName);
-    if(urlToReturn != undefined){
-      return urlToReturn;
+      if(urlToReturn != undefined){
+        return urlToReturn;
+      }
     }
     return "";
   }
