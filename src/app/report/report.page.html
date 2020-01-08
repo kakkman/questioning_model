@@ -45,6 +45,6 @@
       <ion-card-title> We recommend the sales play for: {{product.name}}</ion-card-title>
     </ion-card-header>
     <ion-item>Because your client is currently using these competitive products: {{product.competitive}}</ion-item>
-    <ion-item><a href="google.com" target="_blank">Link to sales play</a></ion-item>
+    <ion-item *ngIf="product.url != ''"><a href="{{product.url}}" target="_blank">Link to sales play</a></ion-item>
   </ion-card>
 </ion-content>
