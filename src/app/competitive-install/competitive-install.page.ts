@@ -108,7 +108,7 @@ export class CompetitiveInstallPage implements OnInit {
         }
       } else { //time to remove competitive product
         if(indexOfProduct != -1){
-          var competitiveIndex = this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.indexOf(ibmProducts[i]);
+          var competitiveIndex = this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.indexOf(competitiveProduct);
           if(competitiveIndex!= -1) {
             this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.splice(competitiveIndex, 1);
             //removes product completely from competitive install section if there are no competitors in use.
