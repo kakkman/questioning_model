@@ -38,7 +38,8 @@ export class CompetitiveInstallPage implements OnInit {
               if(obj === undefined){
                 var newItem = {
                   competitive: prod[y].competitive[z],
-                  ibm: [currentProduct]
+                  ibm: [currentProduct],
+                  url: prod[y].url
                 }
                 currentArray.push(newItem)
               } else { //it does exist
@@ -47,7 +48,8 @@ export class CompetitiveInstallPage implements OnInit {
 
                 var updatedItem = {
                   competitive: obj.competitive,
-                  ibm: ibmProds
+                  ibm: ibmProds,
+                  url: prod[y].url
                 }
                 currentArray[index] = updatedItem;
               }
@@ -85,20 +87,21 @@ export class CompetitiveInstallPage implements OnInit {
   checkItem(e, item){
     let competitiveProduct = item.competitive;
     let ibmProducts = item.ibm;
-
     if(this.auth.currentAccount.competitiveInstall === undefined) {
       this.auth.currentAccount.competitiveInstall = [];
     }
     for(var i = 0; i < ibmProducts.length; i++){
-      var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(i => i.name === ibmProducts[i]);
+      //checks to
+      var indexOfProduct = this.auth.currentAccount.competitiveInstall.findIndex(j => j.name === ibmProducts[i]);
       if(e.currentTarget.checked) {
         //checks to see if the ibm related product is already on there, if it isn't it adds it. 
         if(indexOfProduct != -1) {
-          this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.push(item);
+          this.auth.currentAccount.competitiveInstall[indexOfProduct].competitive.push(competitiveProduct);
         } else {
         //pushes as array to allow for more competitive products to be added.
           var newCompetitive = {
             name: ibmProducts[i],
+            url: item.url,
             competitive: [competitiveProduct]
           };
           this.auth.currentAccount.competitiveInstall.push(newCompetitive);
