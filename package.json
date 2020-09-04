@@ -36,7 +36,7 @@
     "ibmcloud-appid": "^6.0.2",
     "ibmcloud-appid-js": "^0.3.1",
     "ngx-papaparse": "^3.0.4",
-    "papaparse": "^5.1.0",
+    "papaparse": "^5.2.0",
     "pouchdb": "^7.1.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
